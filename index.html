@@ -25,26 +25,33 @@
             font-family: 'Space Grotesk', sans-serif;
             background-color: #000000;
             color: #E4E4E7; /* Zinc 200 */
-            position: relative; /* Needed for the ::before pseudo-element */
-            min-height: 100vh; /* Ensure body takes at least full viewport height */
+            position: relative;
+            min-height: 100vh;
         }
 
         /* Pseudo-element for the background logo */
         body::before {
             content: '';
-            position: fixed; /* Fixed to viewport so it stays in place */
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            /* IMPORTANT: Replace this placeholder URL with the actual public URL of your WolfNode logo image */
             background-image: url('https://placehold.co/1200x800/000000/6A5ACD?text=WOLFNODE+LOGO'); 
-            background-size: cover; /* Ensures the image covers the entire background */
-            background-position: center center; /* Centers the image */
-            background-repeat: no-repeat; /* Prevents the image from repeating */
-            opacity: 0.1; /* Adjusted opacity for better visibility */
-            background-blend-mode: screen; /* Changed blend mode for better visibility on dark background */
-            z-index: -1; /* Puts the background image behind all other content */
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            opacity: 0.2;
+            background-blend-mode: screen;
+            z-index: -1;
+            pointer-events: none; /* Fix for form input issue */
+        }
+
+        /* Ensure input fields and textarea are interactive */
+        #contactForm input,
+        #contactForm textarea {
+            pointer-events: auto !important;
+            user-select: auto !important;
         }
 
         .hero-section {
@@ -119,6 +126,92 @@
              transform: scale(1.05);
              box-shadow: 0 0 40px rgba(79, 70, 229, 0.5);
         }
+
+        /* N8N Chat Widget Custom Styles */
+        .n8n-chat-widget-container {
+            font-family: 'Space Grotesk', sans-serif !important;
+        }
+
+        .n8n-chat-window {
+            background-color: rgba(10, 10, 10, 0.9) !important;
+            border: 1px solid rgba(124, 58, 237, 0.3) !important;
+            border-radius: 10px !important;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5) !important;
+            color: #E4E4E7 !important;
+        }
+
+        .n8n-chat-header {
+            background-color: #4F46E5 !important;
+            color: white !important;
+            border-top-left-radius: 8px !important;
+            border-top-right-radius: 8px !important;
+            font-weight: 700 !important;
+            padding: 1rem !important;
+        }
+
+        .n8n-chat-messages {
+            background-color: transparent !important;
+            padding: 10px !important;
+        }
+
+        .n8n-chat-message-user {
+            background-color: #6D28D9 !important;
+            color: white !important;
+            border-radius: 15px !important;
+            padding: 8px 12px !important;
+            margin-bottom: 8px !important;
+            align-self: flex-end !important;
+        }
+
+        .n8n-chat-message-ai {
+            background-color: #1a1a1a !important;
+            color: #E4E4E7 !important;
+            border-radius: 15px !important;
+            padding: 8px 12px !important;
+            margin-bottom: 8px !important;
+            align-self: flex-start !important;
+        }
+
+        .n8n-chat-input-container {
+            padding: 10px !important;
+            background-color: rgba(0,0,0,0.6) !important;
+            border-top: 1px solid rgba(124, 58, 237, 0.2) !important;
+            border-bottom-left-radius: 8px !important;
+            border-bottom-right-radius: 8px !important;
+        }
+
+        .n8n-chat-input-text {
+            background-color: #2a2a2a !important;
+            color: white !important;
+            border: 1px solid rgba(124, 58, 237, 0.3) !important;
+            border-radius: 8px !important;
+            padding: 8px 12px !important;
+            font-family: 'Space Grotesk', sans-serif !important;
+        }
+
+        .n8n-chat-input-button {
+            background-color: #6D28D9 !important;
+            color: white !important;
+            border-radius: 8px !important;
+            padding: 8px 15px !important;
+            transition: background-color 0.3s ease !important;
+        }
+
+        .n8n-chat-input-button:hover {
+            background-color: #7C3AED !important;
+        }
+
+        .n8n-chat-toggle-button {
+             background-color: #6D28D9 !important;
+             color: white !important;
+             border-radius: 50% !important;
+             width: 50px !important;
+             height: 50px !important;
+             display: flex !important;
+             align-items: center !important;
+             justify-content: center !important;
+             box-shadow: 0 4px 10px rgba(0,0,0,0.3) !important;
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -132,7 +225,7 @@
 <a class="text-zinc-300 hover:text-violet-300 transition hover:text-glow" href="#why-us">Why Us</a>
 <a class="text-zinc-300 hover:text-violet-300 transition hover:text-glow" href="#how-it-works">How It Works</a>
 <a class="text-zinc-300 hover:text-violet-300 transition hover:text-glow" href="#pricing">Pricing</a>
-<a class="text-zinc-300 hover:text-violet-300 transition hover:text-glow" href="#contact-form-section">Contact</a> <!-- Updated link -->
+<a class="text-zinc-300 hover:text-violet-300 transition hover:text-glow" href="#contact-form-section">Contact</a>
 </nav>
 <a class="hidden md:inline-block bg-indigo-600 text-white font-semibold px-5 py-2 rounded-lg cta-button border border-indigo-500" href="#why-us">Explore Automations</a>
 </div>
@@ -371,12 +464,13 @@
 	import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
 
 	createChat({
-		webhookUrl: 'https://n8n-service-0qtq.onrender.com/webhook/5cb3f989-6275-4c16-969c-b27304e761be/chat'
+		webhookUrl: 'https://n8n-service-0qtq.onrender.com/webhook/5cb3f989-6275-4c16-969c-b27304e761be/chat',
+        initialMessage: "Hi there! 👋 Start a chat. We're here to help you 24/7. Automate Anything. Dominate Everything. wolf24",
+        headerTitle: "WolfNode AI Chat"
 	});
 </script>
 
 <script>        
-    // Initialize Lucide Icons on window load        
     document.addEventListener('DOMContentLoaded', (event) => {            
         lucide.createIcons();
             
@@ -394,20 +488,45 @@
         // Handle contact form submission
         const contactForm = document.getElementById('contactForm');
         const formMessage = document.getElementById('formMessage');
-        const contactWebhookUrl = 'YOUR_N8N_CONTACT_FORM_WEBHOOK_URL_HERE'; // *** IMPORTANT: Replace with your actual n8n webhook URL ***
+        const contactWebhookUrl = 'https://n8n-service-0qtq.onrender.com/webhook/8ef378c5-430f-4b32-a627-e3b4b183c145';
 
         if (contactForm) {
             contactForm.addEventListener('submit', async function(e) {
-                e.preventDefault(); // Prevent default form submission
+                e.preventDefault();
 
-                formMessage.textContent = 'Sending...';
+                // Get form elements
+                const submitButton = contactForm.querySelector('button[type="submit"]');
+                const nameInput = document.getElementById('name');
+                const emailInput = document.getElementById('email');
+                const messageInput = document.getElementById('message');
+
+                // Validate inputs
+                if (!nameInput.value.trim() || !emailInput.value.trim() || !messageInput.value.trim()) {
+                    formMessage.textContent = 'Please fill in all fields';
+                    formMessage.className = 'mt-4 text-center text-sm font-medium text-red-400';
+                    return;
+                }
+
+                // Validate email format
+                if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value)) {
+                    formMessage.textContent = 'Please enter a valid email address';
+                    formMessage.className = 'mt-4 text-center text-sm font-medium text-red-400';
+                    return;
+                }
+
+                // Set loading state
+                submitButton.disabled = true;
+                formMessage.textContent = 'Sending your message...';
                 formMessage.className = 'mt-4 text-center text-sm font-medium text-blue-400';
 
-                const formData = new FormData(contactForm);
-                const payload = {};
-                for (const [key, value] of formData.entries()) {
-                    payload[key] = value;
-                }
+                // Prepare payload
+                const payload = {
+                    name: nameInput.value.trim(),
+                    email: emailInput.value.trim(),
+                    message: messageInput.value.trim(),
+                    timestamp: new Date().toISOString(),
+                    source: 'WolfNode Website Contact Form'
+                };
 
                 try {
                     const response = await fetch(contactWebhookUrl, {
@@ -421,7 +540,7 @@
                     if (response.ok) {
                         formMessage.textContent = 'Message sent successfully! We will get back to you soon.';
                         formMessage.className = 'mt-4 text-center text-sm font-medium text-green-400';
-                        contactForm.reset(); // Clear the form
+                        contactForm.reset();
                     } else {
                         const errorData = await response.json();
                         formMessage.textContent = `Error: ${errorData.message || 'Failed to send message.'}`;
@@ -432,6 +551,8 @@
                     formMessage.textContent = 'Network error. Please try again later.';
                     formMessage.className = 'mt-4 text-center text-sm font-medium text-red-400';
                     console.error('Form submission network error:', error);
+                } finally {
+                    submitButton.disabled = false;
                 }
             });
         }
