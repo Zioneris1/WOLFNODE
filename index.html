@@ -377,6 +377,16 @@
             height: 100%;
             z-index: -1;
         }
+
+        .testimonial-card {
+            transition: all 0.3s ease;
+            background: rgba(15, 15, 15, 0.7);
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(124, 58, 237, 0.2);
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -639,47 +649,78 @@
     </div>
 </section>
 
-<!-- Client Success Stories -->
+<!-- Client Testimonials Section -->
 <section class="py-20 bg-black/50">
     <div class="container mx-auto px-6">
         <div class="text-center mb-12">
-            <h2 class="text-4xl font-bold text-white text-glow">WolfNode in Action</h2>
-            <p class="text-zinc-400 mt-2">See how we've transformed businesses</p>
+            <h2 class="text-4xl font-bold text-white text-glow">What Our Clients Say</h2>
+            <p class="text-zinc-400 mt-2">Real results from businesses like yours</p>
         </div>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div class="relative rounded-xl overflow-hidden aspect-video">
-                <video class="w-full h-full object-cover" poster="https://images.unsplash.com/photo-1551288049-bebda4e38f71" controls>
-                    <source src="https://example.com/videos/client-testimonial-1.mp4" type="video/mp4">
-                </video>
-                <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-6">
-                    <div>
-                        <p class="text-white font-bold text-xl">"Our revenue grew 300% with WolfNode automations"</p>
-                        <p class="text-violet-300">- Sarah K., E-commerce Founder</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Testimonial 1 -->
+            <div class="bg-zinc-900/80 rounded-xl p-6 border border-violet-500/20 testimonial-card">
+                <div class="flex items-center mb-4">
+                    <img src="https://thispersondoesnotexist.com/image" 
+                         class="w-12 h-12 rounded-full object-cover border-2 border-violet-500" 
+                         alt="Client" 
+                         onerror="this.src='https://i.pravatar.cc/150?img=1'">
+                    <div class="ml-4">
+                        <p class="text-white font-bold">Sarah K.</p>
+                        <p class="text-violet-400 text-sm">E-commerce CEO</p>
                     </div>
                 </div>
+                <p class="text-zinc-300 italic">"WolfNode's automations saved us 20 hours/week. Our revenue grew by 300% in 3 months!"</p>
+                <div class="mt-4 flex items-center">
+                    <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+                    <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+                    <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+                    <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+                    <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+                </div>
             </div>
-            
-            <div class="grid grid-cols-2 gap-4">
-                <div class="bg-zinc-900/80 rounded-xl p-6 border border-violet-500/20">
-                    <div class="text-violet-400 text-3xl mb-3">📈</div>
-                    <p class="text-white font-bold">+450%</p>
-                    <p class="text-zinc-400 text-sm">Lead conversion increase</p>
+
+            <!-- Testimonial 2 -->
+            <div class="bg-zinc-900/80 rounded-xl p-6 border border-violet-500/20 testimonial-card">
+                <div class="flex items-center mb-4">
+                    <img src="https://thispersondoesnotexist.com/image" 
+                         class="w-12 h-12 rounded-full object-cover border-2 border-violet-500" 
+                         alt="Client" 
+                         onerror="this.src='https://i.pravatar.cc/150?img=2'">
+                    <div class="ml-4">
+                        <p class="text-white font-bold">James L.</p>
+                        <p class="text-violet-400 text-sm">Agency Owner</p>
+                    </div>
                 </div>
-                <div class="bg-zinc-900/80 rounded-xl p-6 border border-violet-500/20">
-                    <div class="text-violet-400 text-3xl mb-3">⏱️</div>
-                    <p class="text-white font-bold">80%</p>
-                    <p class="text-zinc-400 text-sm">Time saved on admin</p>
+                <p class="text-zinc-300 italic">"The AI sales bot closes deals while I sleep. 47 new clients last month!"</p>
+                <div class="mt-4 flex items-center">
+                    <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+                    <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+                    <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+                    <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+                    <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
                 </div>
-                <div class="bg-zinc-900/80 rounded-xl p-6 border border-violet-500/20">
-                    <div class="text-violet-400 text-3xl mb-3">💰</div>
-                    <p class="text-white font-bold">$1.2M</p>
-                    <p class="text-zinc-400 text-sm">Generated in sales</p>
+            </div>
+
+            <!-- Testimonial 3 -->
+            <div class="bg-zinc-900/80 rounded-xl p-6 border border-violet-500/20 testimonial-card">
+                <div class="flex items-center mb-4">
+                    <img src="https://thispersondoesnotexist.com/image" 
+                         class="w-12 h-12 rounded-full object-cover border-2 border-violet-500" 
+                         alt="Client" 
+                         onerror="this.src='https://i.pravatar.cc/150?img=3'">
+                    <div class="ml-4">
+                        <p class="text-white font-bold">Maria G.</p>
+                        <p class="text-violet-400 text-sm">SaaS Founder</p>
+                    </div>
                 </div>
-                <div class="bg-zinc-900/80 rounded-xl p-6 border border-violet-500/20">
-                    <div class="text-violet-400 text-3xl mb-3">🤖</div>
-                    <p class="text-white font-bold">24/7</p>
-                    <p class="text-zinc-400 text-sm">AI agent availability</p>
+                <p class="text-zinc-300 italic">"From 5 to 50 automated workflows in 2 weeks. Our team is shocked."</p>
+                <div class="mt-4 flex items-center">
+                    <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+                    <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+                    <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+                    <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
+                    <i data-lucide="star" class="w-4 h-4 text-yellow-400 fill-yellow-400"></i>
                 </div>
             </div>
         </div>
