@@ -29,7 +29,6 @@
             min-height: 100vh;
         }
 
-        /* Updated with real wolf logo background */
         body::before {
             content: '';
             position: fixed;
@@ -123,6 +122,58 @@
              border-color: #4F46E5;
              transform: scale(1.05);
              box-shadow: 0 0 40px rgba(79, 70, 229, 0.5);
+        }
+
+        /* Mobile menu styles */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 999;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        .mobile-menu a {
+            color: #E4E4E7;
+            font-size: 1.5rem;
+            margin: 1rem 0;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu a:hover {
+            color: #8B5CF6;
+            transform: translateX(5px);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 1000;
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            nav:not(.mobile-menu) {
+                display: none;
+            }
         }
 
         /* N8N Chat Widget Custom Styles */
@@ -235,6 +286,13 @@
 <div class="container mx-auto px-6 py-4">
 <div class="flex items-center justify-between">
 <div class="text-2xl font-bold text-white text-glow">🐺 WolfNode</div>
+
+<!-- Mobile Menu Toggle -->
+<button class="menu-toggle md:hidden" id="menuToggle">
+    <i data-lucide="menu"></i>
+</button>
+
+<!-- Desktop Navigation -->
 <nav class="hidden md:flex items-center space-x-8">
 <a class="text-zinc-300 hover:text-violet-300 transition hover:text-glow" href="#services">Services</a>
 <a class="text-zinc-300 hover:text-violet-300 transition hover:text-glow" href="#why-us">Why Us</a>
@@ -244,6 +302,21 @@
 <a class="text-zinc-300 hover:text-violet-300 transition hover:text-glow" href="#pricing">Pricing</a>
 <a class="text-zinc-300 hover:text-violet-300 transition hover:text-glow" href="#contact">Contact</a>
 </nav>
+
+<!-- Mobile Navigation -->
+<nav class="mobile-menu" id="mobileMenu">
+    <a class="text-zinc-300 hover:text-violet-300 transition hover:text-glow" href="#services">Services</a>
+    <a class="text-zinc-300 hover:text-violet-300 transition hover:text-glow" href="#why-us">Why Us</a>
+    <a class="text-zinc-300 hover:text-violet-300 transition hover:text-glow" href="#how-it-works">How It Works</a>
+    <a class="text-zinc-300 hover:text-violet-300 transition hover:text-glow" href="#bootcamp">Bootcamp</a>
+    <a class="text-zinc-300 hover:text-violet-300 transition hover:text-glow" href="#my-courses">My Courses</a>
+    <a class="text-zinc-300 hover:text-violet-300 transition hover:text-glow" href="#pricing">Pricing</a>
+    <a class="text-zinc-300 hover:text-violet-300 transition hover:text-glow" href="#contact">Contact</a>
+    <button class="absolute top-4 right-4 text-white" id="closeMenu">
+        <i data-lucide="x"></i>
+    </button>
+</nav>
+
 <a class="hidden md:inline-block bg-indigo-600 text-white font-semibold px-5 py-2 rounded-lg cta-button border border-indigo-500" href="#why-us">Explore Automations</a>
 </div>
 </div>
@@ -544,7 +617,7 @@
                         <span class="text-zinc-400">Module 4: Final Project</span>
                     </div>
                 </div>
-                <a href="#" class="block w-full text-center mt-6 bg-violet-600 text-white font-semibold py-2 rounded-lg hover:bg-violet-700 transition">Continue Learning</a>
+                <a href="https://n8n-service-0qtq.onrender.com/form/d67fe188-b0ea-4903-815b-8eff45943090" target="_blank" class="block w-full text-center mt-6 bg-violet-600 text-white font-semibold py-2 rounded-lg hover:bg-violet-700 transition">Continue Learning</a>
             </div>
 
             <!-- Completed Course Card -->
@@ -565,7 +638,7 @@
                 </div>
                 <div class="mt-6 flex space-x-3">
                     <a href="#" class="flex-1 text-center bg-zinc-800 text-white font-semibold py-2 rounded-lg hover:bg-zinc-700 transition">View Certificate</a>
-                    <a href="#" class="flex-1 text-center bg-violet-600 text-white font-semibold py-2 rounded-lg hover:bg-violet-700 transition">Retake Course</a>
+                    <a href="https://n8n-service-0qtq.onrender.com/form/d67fe188-b0ea-4903-815b-8eff45943090" target="_blank" class="flex-1 text-center bg-violet-600 text-white font-semibold py-2 rounded-lg hover:bg-violet-700 transition">Retake Course</a>
                 </div>
             </div>
 
@@ -591,7 +664,7 @@
                         <span class="text-zinc-300">Advanced NLP techniques</span>
                     </li>
                 </ul>
-                <a href="#bootcamp" class="block w-full text-center bg-indigo-600 text-white font-semibold py-3 rounded-lg cta-button border border-indigo-500">Enroll Now</a>
+                <a href="https://n8n-service-0qtq.onrender.com/form/d67fe188-b0ea-4903-815b-8eff45943090" target="_blank" class="block w-full text-center bg-indigo-600 text-white font-semibold py-3 rounded-lg cta-button border border-indigo-500">Enroll Now</a>
             </div>
         </div>
     </div>
@@ -710,6 +783,26 @@
                     targetElement.scrollIntoView({ behavior: 'smooth' });                    
                 }                
             });            
+        });
+
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const closeMenu = document.getElementById('closeMenu');
+
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+        });
+
+        closeMenu.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+        });
+
+        // Close menu when clicking on a link
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+            });
         });
     });
 </script>
