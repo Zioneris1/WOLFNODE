@@ -24,12 +24,11 @@
         body {
             font-family: 'Space Grotesk', sans-serif;
             background-color: #000000;
-            color: #E4E4E7; /* Zinc 200 */
+            color: #E4E4E7;
             position: relative;
             min-height: 100vh;
         }
 
-        /* Pseudo-element for the background logo */
         body::before {
             content: '';
             position: fixed;
@@ -44,14 +43,11 @@
             opacity: 0.2;
             background-blend-mode: screen;
             z-index: -1;
-            pointer-events: none; /* Fix for form input issue */
+            pointer-events: none;
         }
 
-        /* Ensure input fields and textarea are interactive */
-        #contactForm input,
-        #contactForm textarea {
-            pointer-events: auto !important;
-            user-select: auto !important;
+        section[id] {
+            scroll-margin-top: 64px;
         }
 
         .hero-section {
@@ -212,6 +208,23 @@
              justify-content: center !important;
              box-shadow: 0 4px 10px rgba(0,0,0,0.3) !important;
         }
+
+        .contact-form-input { 
+            display: block; 
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            background-color: #1a1a1a;
+            color: #E4E4E7;
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            outline: none;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .contact-form-input:focus {
+            border-color: #8B5CF6;
+            box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.5);
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -224,8 +237,10 @@
 <a class="text-zinc-300 hover:text-violet-300 transition hover:text-glow" href="#services">Services</a>
 <a class="text-zinc-300 hover:text-violet-300 transition hover:text-glow" href="#why-us">Why Us</a>
 <a class="text-zinc-300 hover:text-violet-300 transition hover:text-glow" href="#how-it-works">How It Works</a>
+<a class="text-zinc-300 hover:text-violet-300 transition hover:text-glow" href="#bootcamp">Bootcamp</a>
+<a class="text-zinc-300 hover:text-violet-300 transition hover:text-glow" href="#my-courses">My Courses</a>
 <a class="text-zinc-300 hover:text-violet-300 transition hover:text-glow" href="#pricing">Pricing</a>
-<a class="text-zinc-300 hover:text-violet-300 transition hover:text-glow" href="#contact-form-section">Contact</a>
+<a class="text-zinc-300 hover:text-violet-300 transition hover:text-glow" href="#contact">Contact</a>
 </nav>
 <a class="hidden md:inline-block bg-indigo-600 text-white font-semibold px-5 py-2 rounded-lg cta-button border border-indigo-500" href="#why-us">Explore Automations</a>
 </div>
@@ -242,8 +257,8 @@
                     Stop drowning in manual tasks. We build fast, lean, and deadly automations that run your business for you. Focus on what matters, we'll handle the rest.
                 </p>
 <div class="mt-10 flex flex-col sm:flex-row justify-center items-center gap-4">
-<a class="w-full sm:w-auto bg-indigo-600 text-white font-bold text-lg px-8 py-4 rounded-lg cta-button border border-indigo-500" href="#why-us">
-                        Explore Our Automations
+<a class="w-full sm:w-auto bg-indigo-600 text-white font-bold text-lg px-8 py-4 rounded-lg cta-button border border-indigo-500" href="#bootcamp">
+                        WolfNode Academy:
                     </a>
 <a class="w-full sm:w-auto bg-black/50 text-white font-bold text-lg px-8 py-4 rounded-lg cta-button border border-zinc-700" href="#services">
                         See What We Do
@@ -251,7 +266,8 @@
 </div>
 </div>
 </section>
-<!-- Services Section (New Content) -->
+
+<!-- Services Section -->
 <section class="py-20" id="services">
     <div class="container mx-auto px-6">
         <div class="text-center mb-12">
@@ -395,6 +411,246 @@
         </div>
     </div>
 </section>
+
+<!-- How It Works Section -->
+<section class="py-20 bg-black/50" id="how-it-works">
+<div class="container mx-auto px-6">
+<div class="text-center mb-16">
+<h2 class="text-4xl font-bold text-white text-glow">From Chat to Cash in 3 Steps</h2>
+<p class="text-zinc-400 mt-2 max-w-2xl mx-auto">We turn complex processes into simple, profitable automations.</p>
+</div>
+<div class="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-0">
+<!-- Step 1: Trigger -->
+<div class="flex flex-col items-center text-center w-64">
+<div class="relative flex items-center justify-center w-24 h-24 bg-violet-900/50 rounded-full border-2 border-violet-600 mb-4">
+<i class="w-12 h-12 text-violet-400 text-glow" data-lucide="message-circle-more"></i>
+</div>
+<h3 class="text-xl font-bold text-white">1. A Lead Arrives</h3>
+<p class="text-zinc-400">A customer sends a message on WhatsApp, fills a form, or sends an email.</p>
+</div>
+<!-- Connector -->
+<div class="hidden md:block w-24 h-1 bg-violet-800/50 mx-4"></div>
+<div class="md:hidden w-1 h-16 bg-violet-800/50 my-4"></div>
+<!-- Step 2: Automation -->
+<div class="flex flex-col items-center text-center w-64">
+<div class="relative flex items-center justify-center w-24 h-24 bg-violet-900/50 rounded-full border-2 border-violet-600 mb-4">
+<i class="w-12 h-12 text-violet-400 text-glow" data-lucide="cpu"></i>
+</div>
+<h3 class="text-xl font-bold text-white">2. WolfNode Acts</h3>
+<p class="text-zinc-400">Our automated workflow engages the lead, answers questions, and qualifies them instantly.</p>
+</div>
+<!-- Connector -->
+<div class="hidden md:block w-24 h-1 bg-violet-800/50 mx-4"></div>
+<div class="md:hidden w-1 h-16 bg-violet-800/50 my-4"></div>
+<!-- Step 3: Result -->
+<div class="flex flex-col items-center text-center w-64">
+<div class="relative flex items-center justify-center w-24 h-24 bg-violet-900/50 rounded-full border-2 border-violet-600 mb-4">
+<i class="w-12 h-12 text-violet-400 text-glow" data-lucide="dollar-sign"></i>
+</div>
+<h3 class="text-xl font-bold text-white">3. You Get Paid</h3>
+<p class="text-zinc-400">The result: a booked call, a new sale, or a happy client, all without you lifting a finger.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Bootcamp Section -->
+<section class="py-20" id="bootcamp">
+    <div class="container mx-auto px-6">
+        <div class="text-center mb-12">
+            <h2 class="text-4xl font-bold text-white text-glow">WolfNode Academy: Join the Pack 🐺</h2>
+            <p class="text-zinc-400 mt-2 max-w-2xl mx-auto">Master automation and build your own empire with our expert-led bootcamp and exclusive community.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Course 1 -->
+            <div class="p-8 rounded-xl card">
+                <i class="w-12 h-12 text-violet-400 mb-4 text-glow" data-lucide="graduation-cap"></i>
+                <h3 class="text-2xl font-bold text-white">Automation Fundamentals</h3>
+                <p class="text-zinc-300 mt-2">Learn the core principles of business automation, workflow design, and process optimization.</p>
+                <ul class="mt-4 space-y-2 text-zinc-300 text-sm">
+                    <li class="flex items-center"><i class="w-4 h-4 text-green-500 mr-2" data-lucide="check"></i> Workflow mapping</li>
+                    <li class="flex items-center"><i class="w-4 h-4 text-green-500 mr-2" data-lucide="check"></i> Tool integration basics</li>
+                    <li class="flex items-center"><i class="w-4 h-4 text-green-500 mr-2" data-lucide="check"></i> Efficiency strategies</li>
+                </ul>
+                <a href="https://n8n-service-0qtq.onrender.com/form/d67fe188-b0ea-4903-815b-8eff45943090" target="_blank" class="block w-full text-center mt-8 bg-indigo-600 text-white font-semibold py-3 rounded-lg cta-button border border-indigo-500">Learn More</a>
+            </div>
+
+            <!-- Course 2 -->
+            <div class="p-8 rounded-xl card">
+                <i class="w-12 h-12 text-violet-400 mb-4 text-glow" data-lucide="brain"></i>
+                <h3 class="text-2xl font-bold text-white">AI Agent Development</h3>
+                <p class="text-zinc-300 mt-2">Dive deep into building intelligent AI chatbots and agents for sales, support, and lead generation.</p>
+                <ul class="mt-4 space-y-2 text-zinc-300 text-sm">
+                    <li class="flex items-center"><i class="w-4 h-4 text-green-500 mr-2" data-lucide="check"></i> Prompt engineering</li>
+                    <li class="flex items-center"><i class="w-4 h-4 text-green-500 mr-2" data-lucide="check"></i> Conversational design</li>
+                    <li class="flex items-center"><i class="w-4 h-4 text-green-500 mr-2" data-lucide="check"></i> Advanced AI tools</li>
+                </ul>
+                <a href="https://n8n-service-0qtq.onrender.com/form/d67fe188-b0ea-4903-815b-8eff45943090" target="_blank" class="block w-full text-center mt-8 bg-indigo-600 text-white font-semibold py-3 rounded-lg cta-button border border-indigo-500">Enroll Now</a>
+            </div>
+
+            <!-- Community Card -->
+            <div class="p-8 rounded-xl card">
+                <i class="w-12 h-12 text-violet-400 mb-4 text-glow" data-lucide="users"></i>
+                <h3 class="text-2xl font-bold text-white">The Wolves Community</h3>
+                <p class="text-zinc-300 mt-2">Connect with a thriving pack of automation enthusiasts and experts. Share, learn, and grow together.</p>
+                <ul class="mt-4 space-y-2 text-zinc-300 text-sm">
+                    <li class="flex items-center"><i class="w-4 h-4 text-green-500 mr-2" data-lucide="check"></i> Exclusive forums</li>
+                    <li class="flex items-center"><i class="w-4 h-4 text-green-500 mr-2" data-lucide="check"></i> Live Q&A sessions</li>
+                    <li class="flex items-center"><i class="w-4 h-4 text-green-500 mr-2" data-lucide="check"></i> Project collaboration</li>
+                </ul>
+                <a href="https://n8n-service-0qtq.onrender.com/form/d67fe188-b0ea-4903-815b-8eff45943090" target="_blank" class="block w-full text-center mt-8 bg-black/50 text-white font-semibold py-3 rounded-lg border border-zinc-700 hover:bg-violet-900/50 hover:border-violet-600 transition">Join the Pack</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- My Courses Section -->
+<section class="py-20 bg-black/50" id="my-courses">
+    <div class="container mx-auto px-6">
+        <div class="text-center mb-12">
+            <h2 class="text-4xl font-bold text-white text-glow">My Courses</h2>
+            <p class="text-zinc-400 mt-2">Track your learning progress and access your enrolled courses</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Course Progress Card -->
+            <div class="p-8 rounded-xl card">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-2xl font-bold text-white">Automation Fundamentals</h3>
+                    <span class="text-violet-400 text-sm font-bold">65% Complete</span>
+                </div>
+                <div class="w-full bg-zinc-800 rounded-full h-2.5 mb-4">
+                    <div class="bg-violet-600 h-2.5 rounded-full" style="width: 65%"></div>
+                </div>
+                <p class="text-zinc-300 mb-4">Master the core principles of business automation and workflow design.</p>
+                <div class="space-y-3">
+                    <div class="flex items-center">
+                        <i class="w-5 h-5 text-green-500 mr-2" data-lucide="check-circle"></i>
+                        <span class="text-zinc-300">Module 1: Introduction</span>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="w-5 h-5 text-green-500 mr-2" data-lucide="check-circle"></i>
+                        <span class="text-zinc-300">Module 2: Basic Workflows</span>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="w-5 h-5 text-yellow-500 mr-2" data-lucide="circle"></i>
+                        <span class="text-zinc-300">Module 3: Advanced Concepts</span>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="w-5 h-5 text-zinc-600 mr-2" data-lucide="circle"></i>
+                        <span class="text-zinc-400">Module 4: Final Project</span>
+                    </div>
+                </div>
+                <a href="#" class="block w-full text-center mt-6 bg-violet-600 text-white font-semibold py-2 rounded-lg hover:bg-violet-700 transition">Continue Learning</a>
+            </div>
+
+            <!-- Completed Course Card -->
+            <div class="p-8 rounded-xl card">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-2xl font-bold text-white">AI Chatbot Basics</h3>
+                    <span class="text-green-500 text-sm font-bold">Completed</span>
+                </div>
+                <div class="w-full bg-zinc-800 rounded-full h-2.5 mb-4">
+                    <div class="bg-green-500 h-2.5 rounded-full" style="width: 100%"></div>
+                </div>
+                <p class="text-zinc-300 mb-4">Learn to build and deploy basic AI chatbots for customer interactions.</p>
+                <div class="space-y-3">
+                    <div class="flex items-center">
+                        <i class="w-5 h-5 text-green-500 mr-2" data-lucide="check-circle"></i>
+                        <span class="text-zinc-300">All modules completed</span>
+                    </div>
+                </div>
+                <div class="mt-6 flex space-x-3">
+                    <a href="#" class="flex-1 text-center bg-zinc-800 text-white font-semibold py-2 rounded-lg hover:bg-zinc-700 transition">View Certificate</a>
+                    <a href="#" class="flex-1 text-center bg-violet-600 text-white font-semibold py-2 rounded-lg hover:bg-violet-700 transition">Retake Course</a>
+                </div>
+            </div>
+
+            <!-- New Course Recommendation -->
+            <div class="p-8 rounded-xl card">
+                <h3 class="text-2xl font-bold text-white mb-4">Recommended Next Course</h3>
+                <div class="bg-zinc-900/50 p-4 rounded-lg mb-4">
+                    <h4 class="text-xl font-bold text-violet-400 mb-2">Advanced AI Agents</h4>
+                    <p class="text-zinc-300 text-sm">Take your AI skills to the next level with advanced agent development techniques.</p>
+                </div>
+                <p class="text-zinc-400 mb-4">Based on your progress, we recommend:</p>
+                <ul class="space-y-2 mb-6">
+                    <li class="flex items-center">
+                        <i class="w-4 h-4 text-violet-400 mr-2" data-lucide="zap"></i>
+                        <span class="text-zinc-300">Multi-agent systems</span>
+                    </li>
+                    <li class="flex items-center">
+                        <i class="w-4 h-4 text-violet-400 mr-2" data-lucide="zap"></i>
+                        <span class="text-zinc-300">Voice integration</span>
+                    </li>
+                    <li class="flex items-center">
+                        <i class="w-4 h-4 text-violet-400 mr-2" data-lucide="zap"></i>
+                        <span class="text-zinc-300">Advanced NLP techniques</span>
+                    </li>
+                </ul>
+                <a href="#bootcamp" class="block w-full text-center bg-indigo-600 text-white font-semibold py-3 rounded-lg cta-button border border-indigo-500">Enroll Now</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Pricing Section -->
+<section class="py-20" id="pricing">
+<div class="container mx-auto px-6">
+<div class="text-center mb-12">
+<h2 class="text-4xl font-bold text-white text-glow">Choose Your Pack</h2>
+<p class="text-zinc-400 mt-2">Simple, transparent pricing. No hidden fees.</p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-5xl mx-auto items-start">
+<!-- Starter Wolf -->
+<div class="card p-8 rounded-xl pricing-card">
+<h3 class="text-2xl font-bold text-white">Starter Wolf 🐾</h3>
+<p class="text-zinc-400 mt-1">A powerful one-off setup.</p>
+<p class="text-5xl font-black text-white mt-6">$99 <span class="text-xl font-medium text-zinc-400">/ one-off</span></p>
+<ul class="mt-8 space-y-4 text-zinc-300">
+<li class="flex items-center"><i class="w-5 h-5 text-green-500 mr-2" data-lucide="check"></i> 1 Core Workflow Automation</li>
+<li class="flex items-center"><i class="w-5 h-5 text-green-500 mr-2" data-lucide="check"></i> Up to 3 App Integrations</li>
+<li class="flex items-center"><i class="w-5 h-5 text-green-500 mr-2" data-lucide="check"></i> Full Documentation</li>
+<li class="flex items-center"><i class="w-5 h-5 text-green-500 mr-2" data-lucide="check"></i> 14-Day Support</li>
+</ul>
+<a class="block w-full text-center mt-8 bg-black/50 text-white font-semibold py-3 rounded-lg border border-zinc-700 hover:bg-violet-900/50 hover:border-violet-600 transition" href="https://www.paypal.com/ncp/payment/52F3QL2TR3QYJ" target="_blank">Get Started</a>
+</div>
+<!-- Pack Builder -->
+<div class="card p-8 rounded-xl pricing-card popular relative">
+<div class="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2">
+<div class="bg-indigo-600 text-white text-sm font-bold px-4 py-1 rounded-full uppercase tracking-wider">Most Popular</div>
+</div>
+<h3 class="text-2xl font-bold text-white">Pack Builder 🐺</h3>
+<p class="text-zinc-400 mt-1">For growing businesses.</p>
+<p class="text-5xl font-black text-white mt-6">$250 <span class="text-xl font-medium text-zinc-400">/ month</span></p>
+<ul class="mt-8 space-y-4 text-zinc-300">
+<li class="flex items-center"><i class="w-5 h-5 text-green-500 mr-2" data-lucide="check"></i> 3 Core Workflows</li>
+<li class="flex items-center"><i class="w-5 h-5 text-green-500 mr-2" data-lucide="check"></i> Unlimited App Integrations</li>
+<li class="flex items-center"><i class="w-5 h-5 text-green-500 mr-2" data-lucide="check"></i> Basic AI Chatbot Setup</li>
+<li class="flex items-center"><i class="w-5 h-5 text-green-500 mr-2" data-lucide="check"></i> Ongoing Support &amp; Tweaks</li>
+<li class="flex items-center"><i class="w-5 h-5 text-green-500 mr-2" data-lucide="check"></i> Monthly Performance Report</li>
+</ul>
+<a class="block w-full text-center mt-8 bg-indigo-600 text-white font-semibold py-3 rounded-lg cta-button border border-indigo-500" href="https://www.paypal.com/ncp/payment/CSRUHQMZRPC7Y" target="_blank">Choose Plan</a>
+</div>
+<!-- Alpha Mode -->
+<div class="card p-8 rounded-xl pricing-card">
+<h3 class="text-2xl font-bold text-white">Alpha Mode 🐺⚡</h3>
+<p class="text-zinc-400 mt-1">For total domination.</p>
+<p class="text-5xl font-black text-white mt-6">Custom</p>
+<ul class="mt-8 space-y-4 text-zinc-300">
+<li class="flex items-center"><i class="w-5 h-5 text-green-500 mr-2" data-lucide="check"></i> Everything in Pack Builder</li>
+<li class="flex items-center"><i class="w-5 h-5 text-green-500 mr-2" data-lucide="check"></i> Advanced AI Agents</li>
+<li class="flex items-center"><i class="w-5 h-5 text-green-500 mr-2" data-lucide="check"></i> Custom Client Portal</li>
+<li class="flex items-center"><i class="w-5 h-5 text-green-500 mr-2" data-lucide="check"></i> Dedicated Support Channel</li>
+<li class="flex items-center"><i class="w-5 h-5 text-green-500 mr-2" data-lucide="check"></i> API Development</li>
+</ul>
+<a class="block w-full text-center mt-8 bg-black/50 text-white font-semibold py-3 rounded-lg border border-zinc-700 hover:bg-violet-900/50 hover:border-violet-600 transition" href="#contact">Request a Quote</a>
+</div>
+</div>
+</div>
+</section>
+
 <!-- Get Started Section -->
 <section class="py-20" id="contact">
 <div class="container mx-auto px-6">
@@ -404,47 +660,17 @@
 <div class="relative">
 <h2 class="text-4xl md:text-5xl font-bold text-white text-glow">Ready to Build Your Automation Empire?</h2>
 <p class="text-indigo-200 mt-4 max-w-2xl mx-auto text-lg">
-                            Dive into our portfolio of automations and see what's possible. Your journey to total efficiency starts here.
-                        </p>
+                    Dive into our portfolio of automations and see what's possible. Your journey to total efficiency starts here.
+                </p>
 <div class="mt-8">
 <a class="bg-white text-indigo-600 font-bold text-lg px-8 py-4 rounded-lg cta-button inline-block" href="https://www.facebook.com/profile.php?id=61577157165079">
-                                Start Here
-                            </a>
+                        Start Here
+                    </a>
 </div>
 <p class="text-indigo-200 mt-4 text-sm">Have questions? Our AI assistant is here to help.</p>
 </div>
 </div>
 </div>
-</section>
-
-<!-- New Contact Form Section -->
-<section class="py-20 bg-black/50" id="contact-form-section">
-    <div class="container mx-auto px-6">
-        <div class="text-center mb-12">
-            <h2 class="text-4xl font-bold text-white text-glow">Get In Touch</h2>
-            <p class="text-zinc-400 mt-2">Have a project in mind? Fill out the form below and we'll get back to you soon.</p>
-        </div>
-        <div class="max-w-xl mx-auto p-8 rounded-xl card">
-            <form id="contactForm" class="space-y-6">
-                <div>
-                    <label for="name" class="block text-zinc-300 text-sm font-bold mb-2">Name</label>
-                    <input type="text" id="name" name="name" required class="w-full px-4 py-2 rounded-lg bg-zinc-800 text-white border border-violet-500/20 focus:ring-2 focus:ring-violet-500 focus:outline-none" placeholder="Your Name">
-                </div>
-                <div>
-                    <label for="email" class="block text-zinc-300 text-sm font-bold mb-2">Email</label>
-                    <input type="email" id="email" name="email" required class="w-full px-4 py-2 rounded-lg bg-zinc-800 text-white border border-violet-500/20 focus:ring-2 focus:ring-violet-500 focus:outline-none" placeholder="your@email.com">
-                </div>
-                <div>
-                    <label for="message" class="block text-zinc-300 text-sm font-bold mb-2">Message</label>
-                    <textarea id="message" name="message" rows="5" required class="w-full px-4 py-2 rounded-lg bg-zinc-800 text-white border border-violet-500/20 focus:ring-2 focus:ring-violet-500 focus:outline-none" placeholder="Tell us about your automation needs..."></textarea>
-                </div>
-                <button type="submit" class="w-full bg-indigo-600 text-white font-bold text-lg px-8 py-4 rounded-lg cta-button border border-indigo-500">
-                    Send Message
-                </button>
-                <div id="formMessage" class="mt-4 text-center text-sm font-medium"></div>
-            </form>
-        </div>
-    </div>
 </section>
 
 </main>
@@ -474,7 +700,6 @@
     document.addEventListener('DOMContentLoaded', (event) => {            
         lucide.createIcons();
             
-        // Smooth scrolling for anchor links            
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {                
             anchor.addEventListener('click', function (e) {                    
                 e.preventDefault();                    
@@ -484,78 +709,6 @@
                 }                
             });            
         });
-
-        // Handle contact form submission
-        const contactForm = document.getElementById('contactForm');
-        const formMessage = document.getElementById('formMessage');
-        const contactWebhookUrl = 'https://n8n-service-0qtq.onrender.com/webhook/8ef378c5-430f-4b32-a627-e3b4b183c145';
-
-        if (contactForm) {
-            contactForm.addEventListener('submit', async function(e) {
-                e.preventDefault();
-
-                // Get form elements
-                const submitButton = contactForm.querySelector('button[type="submit"]');
-                const nameInput = document.getElementById('name');
-                const emailInput = document.getElementById('email');
-                const messageInput = document.getElementById('message');
-
-                // Validate inputs
-                if (!nameInput.value.trim() || !emailInput.value.trim() || !messageInput.value.trim()) {
-                    formMessage.textContent = 'Please fill in all fields';
-                    formMessage.className = 'mt-4 text-center text-sm font-medium text-red-400';
-                    return;
-                }
-
-                // Validate email format
-                if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value)) {
-                    formMessage.textContent = 'Please enter a valid email address';
-                    formMessage.className = 'mt-4 text-center text-sm font-medium text-red-400';
-                    return;
-                }
-
-                // Set loading state
-                submitButton.disabled = true;
-                formMessage.textContent = 'Sending your message...';
-                formMessage.className = 'mt-4 text-center text-sm font-medium text-blue-400';
-
-                // Prepare payload
-                const payload = {
-                    name: nameInput.value.trim(),
-                    email: emailInput.value.trim(),
-                    message: messageInput.value.trim(),
-                    timestamp: new Date().toISOString(),
-                    source: 'WolfNode Website Contact Form'
-                };
-
-                try {
-                    const response = await fetch(contactWebhookUrl, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(payload)
-                    });
-
-                    if (response.ok) {
-                        formMessage.textContent = 'Message sent successfully! We will get back to you soon.';
-                        formMessage.className = 'mt-4 text-center text-sm font-medium text-green-400';
-                        contactForm.reset();
-                    } else {
-                        const errorData = await response.json();
-                        formMessage.textContent = `Error: ${errorData.message || 'Failed to send message.'}`;
-                        formMessage.className = 'mt-4 text-center text-sm font-medium text-red-400';
-                        console.error('Form submission error:', response.status, errorData);
-                    }
-                } catch (error) {
-                    formMessage.textContent = 'Network error. Please try again later.';
-                    formMessage.className = 'mt-4 text-center text-sm font-medium text-red-400';
-                    console.error('Form submission network error:', error);
-                } finally {
-                    submitButton.disabled = false;
-                }
-            });
-        }
     });
 </script>
 </body>
