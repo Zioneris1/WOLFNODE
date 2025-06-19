@@ -9,6 +9,9 @@
 <link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 <script src="https://unpkg.com/lucide@latest"></script>
+<script src="https://unpkg.com/scrollreveal"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
 <style>
         @keyframes subtle-glow {
             0% { box-shadow: 0 0 15px rgba(79, 70, 229, 0.4), inset 0 0 5px rgba(79, 70, 229, 0.3); }
@@ -21,12 +24,27 @@
             100% { background-position: 100% 50%; }
         }
 
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes particle-rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
         body {
             font-family: 'Space Grotesk', sans-serif;
             background-color: #000000;
             color: #E4E4E7;
             position: relative;
             min-height: 100vh;
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%238B5CF6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"></path></svg>'), auto;
+        }
+
+        a, button {
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="%238B5CF6" stroke="%234F46E5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle></svg>'), pointer;
         }
 
         body::before {
@@ -53,24 +71,10 @@
 
         .hero-section {
             background-color: #000;
-            background-image: 
-                linear-gradient(rgba(124, 58, 237, 0.1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(124, 58, 237, 0.1) 1px, transparent 1px);
-            background-size: 40px 40px;
-            animation: grid-pan 30s linear infinite;
             position: relative;
+            overflow: hidden;
         }
 
-        .hero-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 80%);
-        }
-        
         .text-glow {
             text-shadow: 0 0 8px rgba(196, 181, 253, 0.7);
         }
@@ -78,6 +82,25 @@
         .cta-button {
             transition: all 0.3s ease;
             animation: subtle-glow 4s ease-in-out infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(124, 58, 237, 0.8) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .cta-button:hover::after {
+            opacity: 0.6;
+            animation: particle-rotate 3s linear infinite;
         }
 
         .cta-button:hover {
@@ -118,10 +141,27 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
+        .card:hover .card-icon {
+            transform: scale(1.2) rotate(5deg);
+            filter: drop-shadow(0 0 8px rgba(124, 58, 237, 0.7));
+        }
+
+        .card-icon {
+            transition: all 0.3s ease;
+        }
+
         .pricing-card.popular {
              border-color: #4F46E5;
              transform: scale(1.05);
              box-shadow: 0 0 40px rgba(79, 70, 229, 0.5);
+        }
+
+        .pricing-card:hover .price {
+            background: linear-gradient(135deg, #8B5CF6, #4F46E5);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: none;
         }
 
         /* Mobile menu styles */
@@ -278,6 +318,65 @@
             border-color: #8B5CF6;
             box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.5);
         }
+
+        .feature-float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .feature-delay-1 { animation-delay: 1s; }
+        .feature-delay-2 { animation-delay: 2s; }
+        .feature-delay-3 { animation-delay: 3s; }
+
+        .feature-highlight {
+            position: relative;
+        }
+
+        .feature-highlight::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #8B5CF6, #4F46E5);
+            transition: width 0.3s ease;
+        }
+
+        .feature-highlight:hover::after {
+            width: 100%;
+        }
+
+        .ai-demo-container {
+            background: rgba(10, 10, 10, 0.7);
+            border: 1px solid rgba(124, 58, 237, 0.3);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        .ai-message {
+            background: rgba(20, 20, 20, 0.8);
+            border-left: 3px solid #7C3AED;
+        }
+
+        .user-message {
+            background: rgba(79, 70, 229, 0.2);
+            border-right: 3px solid #4F46E5;
+        }
+
+        .ai-typing {
+            color: #A78BFA;
+            font-style: italic;
+        }
+
+        #vanta-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -294,13 +393,13 @@
 
 <!-- Desktop Navigation -->
 <nav class="hidden md:flex items-center space-x-8">
-<a class="text-zinc-300 hover:text-violet-300 transition hover:text-glow" href="#services">Services</a>
-<a class="text-zinc-300 hover:text-violet-300 transition hover:text-glow" href="#why-us">Why Us</a>
-<a class="text-zinc-300 hover:text-violet-300 transition hover:text-glow" href="#how-it-works">How It Works</a>
-<a class="text-zinc-300 hover:text-violet-300 transition hover:text-glow" href="#bootcamp">Bootcamp</a>
-<a class="text-zinc-300 hover:text-violet-300 transition hover:text-glow" href="#my-courses">My Courses</a>
-<a class="text-zinc-300 hover:text-violet-300 transition hover:text-glow" href="#pricing">Pricing</a>
-<a class="text-zinc-300 hover:text-violet-300 transition hover:text-glow" href="#contact">Contact</a>
+<a class="text-zinc-300 hover:text-violet-300 transition hover:text-glow feature-highlight" href="#services">Services</a>
+<a class="text-zinc-300 hover:text-violet-300 transition hover:text-glow feature-highlight" href="#why-us">Why Us</a>
+<a class="text-zinc-300 hover:text-violet-300 transition hover:text-glow feature-highlight" href="#how-it-works">How It Works</a>
+<a class="text-zinc-300 hover:text-violet-300 transition hover:text-glow feature-highlight" href="#bootcamp">Bootcamp</a>
+<a class="text-zinc-300 hover:text-violet-300 transition hover:text-glow feature-highlight" href="#my-courses">My Courses</a>
+<a class="text-zinc-300 hover:text-violet-300 transition hover:text-glow feature-highlight" href="#pricing">Pricing</a>
+<a class="text-zinc-300 hover:text-violet-300 transition hover:text-glow feature-highlight" href="#contact">Contact</a>
 </nav>
 
 <!-- Mobile Navigation -->
@@ -324,6 +423,7 @@
 <main>
 <!-- Hero Section -->
 <section class="pt-40 pb-20 hero-section" id="home">
+<div id="vanta-bg"></div>
 <div class="container mx-auto px-6 text-center relative z-10">
 <h1 class="text-5xl md:text-7xl font-black text-white leading-tight text-glow">
 <span class="text-violet-400">Automate</span> Anything.<br/><span class="text-violet-400">Dominate</span> Everything.
@@ -333,13 +433,55 @@
                 </p>
 <div class="mt-10 flex flex-col sm:flex-row justify-center items-center gap-4">
 <a class="w-full sm:w-auto bg-indigo-600 text-white font-bold text-lg px-8 py-4 rounded-lg cta-button border border-indigo-500" href="#bootcamp">
-                        WolfNode Academy:
+                        WolfNode Academy
                     </a>
 <a class="w-full sm:w-auto bg-black/50 text-white font-bold text-lg px-8 py-4 rounded-lg cta-button border border-zinc-700" href="#services">
                         See What We Do
                     </a>
 </div>
+
+<!-- Stats Counter -->
+<div class="mt-12 flex justify-center gap-8">
+    <div class="text-center">
+        <div class="text-4xl font-bold text-violet-400 stat-counter" data-target="127">0</div>
+        <div class="text-zinc-400">Automations Built</div>
+    </div>
+    <div class="text-center">
+        <div class="text-4xl font-bold text-violet-400 stat-counter" data-target="42">0</div>
+        <div class="text-zinc-400">Happy Clients</div>
+    </div>
+    <div class="text-center">
+        <div class="text-4xl font-bold text-violet-400 stat-counter" data-target="98">0</div>
+        <div class="text-zinc-400">% Satisfaction</div>
+    </div>
 </div>
+</div>
+</section>
+
+<!-- Interactive AI Demo Section -->
+<section class="py-20 bg-gradient-to-b from-black to-indigo-900/10">
+    <div class="container mx-auto px-6">
+        <div class="text-center mb-12">
+            <h2 class="text-4xl font-bold text-white text-glow">Experience WolfNode AI</h2>
+            <p class="text-zinc-400 mt-2">Try our AI agent right now - ask anything about automation</p>
+        </div>
+        
+        <div class="max-w-4xl mx-auto ai-demo-container p-6">
+            <div id="ai-demo" class="h-96 overflow-y-auto mb-4 space-y-4">
+                <div class="ai-message p-4 rounded-lg">
+                    <p class="text-violet-400 font-bold">WolfNode AI:</p>
+                    <p>Hello! I'm WolfNode's AI assistant. Ask me anything about business automation, AI agents, or how we can help your business.</p>
+                </div>
+            </div>
+            <div class="flex gap-2">
+                <input type="text" id="ai-input" placeholder="Type your question..." 
+                       class="flex-1 bg-zinc-900 text-white p-3 rounded-lg border border-violet-500/30 focus:outline-none focus:ring-2 focus:ring-violet-500">
+                <button id="ai-send" class="bg-violet-600 hover:bg-violet-700 text-white font-bold py-3 px-6 rounded-lg transition">
+                    Send
+                </button>
+            </div>
+        </div>
+    </div>
 </section>
 
 <!-- Services Section -->
@@ -350,28 +492,38 @@
             <p class="text-zinc-400 mt-2">We build custom automation systems for every part of your business.</p>
         </div>
 
+        <!-- Floating background elements -->
+        <div class="relative hidden lg:block">
+            <div class="absolute right-0 top-1/2 transform -translate-y-1/2 w-96 h-96">
+                <div class="feature-float absolute top-0 left-0 w-24 h-24 bg-indigo-600/30 rounded-full blur-xl"></div>
+                <div class="feature-float feature-delay-1 absolute top-1/4 right-0 w-16 h-16 bg-violet-600/30 rounded-full blur-lg"></div>
+                <div class="feature-float feature-delay-2 absolute bottom-0 left-1/4 w-20 h-20 bg-purple-600/30 rounded-full blur-xl"></div>
+                <div class="feature-float feature-delay-3 absolute bottom-1/3 right-1/4 w-28 h-28 bg-indigo-700/30 rounded-full blur-2xl"></div>
+            </div>
+        </div>
+
         <!-- Sales & Funnel Automations -->
         <div class="mb-16">
             <h3 class="text-3xl font-bold text-violet-400 text-glow mb-6 text-center md:text-left">⚙️ Sales & Funnel Automations</h3>
             <p class="text-zinc-300 text-lg mb-8 max-w-3xl mx-auto md:mx-0">Convert leads, follow up, and close deals — without a sales team.</p>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 <div class="p-6 rounded-xl card">
-                    <p class="text-4xl mb-3">🧲</p>
+                    <p class="text-4xl mb-3 card-icon">🧲</p>
                     <h4 class="text-xl font-bold text-white">Auto-Lead Capture & Qualification System</h4>
                     <p class="text-zinc-300 mt-2">Turn every form, DM, or ad click into a qualified lead.</p>
                 </div>
                 <div class="p-6 rounded-xl card">
-                    <p class="text-4xl mb-3">💬</p>
+                    <p class="text-4xl mb-3 card-icon">💬</p>
                     <h4 class="text-xl font-bold text-white">Follow-Up Sequence Builder (Email + WhatsApp)</h4>
                     <p class="text-zinc-300 mt-2">Auto-sends messages until the deal closes — warm, human, and consistent.</p>
                 </div>
                 <div class="p-6 rounded-xl card">
-                    <p class="text-4xl mb-3">📊</p>
+                    <p class="text-4xl mb-3 card-icon">📊</p>
                     <h4 class="text-xl font-bold text-white">CRM Sync + Lead Tracker Flow</h4>
                     <p class="text-zinc-300 mt-2">Automatically updates Google Sheets, CRM, or dashboard with lead status.</p>
                 </div>
                 <div class="p-6 rounded-xl card">
-                    <p class="text-4xl mb-3">🛒</p>
+                    <p class="text-4xl mb-3 card-icon">🛒</p>
                     <h4 class="text-xl font-bold text-white">Upsell & Cross-Sell Automation</h4>
                     <p class="text-zinc-300 mt-2">Automatically suggest upgrades or add-ons after purchase.</p>
                 </div>
@@ -384,22 +536,22 @@
             <p class="text-zinc-300 text-lg mb-8 max-w-3xl mx-auto md:mx-0">Available 24/7. Sounds human. Closes like a pro.</p>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 <div class="p-6 rounded-xl card">
-                    <p class="text-4xl mb-3">🧑‍💻</p>
+                    <p class="text-4xl mb-3 card-icon">🧑‍💻</p>
                     <h4 class="text-xl font-bold text-white">Website Chatbot Agent</h4>
                     <p class="text-zinc-300 mt-2">Chat agent trained on your offers, pricing, and closing strategy.</p>
                 </div>
                 <div class="p-6 rounded-xl card">
-                    <p class="text-4xl mb-3">📱</p>
+                    <p class="text-4xl mb-3 card-icon">📱</p>
                     <h4 class="text-xl font-bold text-white">WhatsApp + Zalo AI Agent</h4>
                     <p class="text-zinc-300 mt-2">Handles customer questions, shares pricing, books calls — all on autopilot.</p>
                 </div>
                 <div class="p-6 rounded-xl card">
-                    <p class="text-4xl mb-3">🧵</p>
+                    <p class="text-4xl mb-3 card-icon">🧵</p>
                     <h4 class="text-xl font-bold text-white">Instagram/FB Messenger AI</h4>
                     <p class="text-zinc-300 mt-2">Connects to Meta, responds to DMs, handles FAQs, and sends clients to checkout.</p>
                 </div>
                 <div class="p-6 rounded-xl card">
-                    <p class="text-4xl mb-3">🎫</p>
+                    <p class="text-4xl mb-3 card-icon">🎫</p>
                     <h4 class="text-xl font-bold text-white">Refund/Support Handling Bot</h4>
                     <p class="text-zinc-300 mt-2">Responds to refund requests, logs complaints, or escalates to real humans.</p>
                 </div>
@@ -412,22 +564,22 @@
             <p class="text-zinc-300 text-lg mb-8 max-w-3xl mx-auto md:mx-0">Let bots do the boring stuff.</p>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 <div class="p-6 rounded-xl card">
-                    <p class="text-4xl mb-3">📄</p>
+                    <p class="text-4xl mb-3 card-icon">📄</p>
                     <h4 class="text-xl font-bold text-white">Auto-Document Generator (Proposals, Quotes, Invoices)</h4>
                     <p class="text-zinc-300 mt-2">Just press a button or fill a form — your docs are created and emailed.</p>
                 </div>
                 <div class="p-6 rounded-xl card">
-                    <p class="text-4xl mb-3">📋</p>
+                    <p class="text-4xl mb-3 card-icon">📋</p>
                     <h4 class="text-xl font-bold text-white">Auto-Task Creator for Teams</h4>
                     <p class="text-zinc-300 mt-2">Assigns tasks to staff based on lead activity or client stage.</p>
                 </div>
                 <div class="p-6 rounded-xl card">
-                    <p class="text-4xl mb-3">📆</p>
+                    <p class="text-4xl mb-3 card-icon">📆</p>
                     <h4 class="text-xl font-bold text-white">Calendar Booking Integration Flow</h4>
                     <p class="text-zinc-300 mt-2">Auto-sends booking links and reminders via WhatsApp, Email, or Messenger.</p>
                 </div>
                 <div class="p-6 rounded-xl card">
-                    <p class="text-4xl mb-3">🚶</p>
+                    <p class="text-4xl mb-3 card-icon">🚶</p>
                     <h4 class="text-xl font-bold text-white">Customer Journey Tracker</h4>
                     <p class="text-zinc-300 mt-2">See where each client is in the journey — new lead, payment pending, onboarding, etc.</p>
                 </div>
@@ -440,17 +592,17 @@
             <p class="text-zinc-300 text-lg mb-8 max-w-3xl mx-auto md:mx-0">Market daily, without lifting a finger.</p>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 <div class="p-6 rounded-xl card">
-                    <p class="text-4xl mb-3">📅</p>
+                    <p class="text-4xl mb-3 card-icon">📅</p>
                     <h4 class="text-xl font-bold text-white">Social Media Content Poster</h4>
                     <p class="text-zinc-300 mt-2">Automatically posts quotes, videos, or promos based on your calendar.</p>
                 </div>
                 <div class="p-6 rounded-xl card">
-                    <p class="text-4xl mb-3">📢</p>
+                    <p class="text-4xl mb-3 card-icon">📢</p>
                     <h4 class="text-xl font-bold text-white">Broadcast Bot for WhatsApp & Email</h4>
                     <p class="text-zinc-300 mt-2">Send mass updates, promos, or newsletters based on customer segment.</p>
                 </div>
                 <div class="p-6 rounded-xl card">
-                    <p class="text-4xl mb-3">🌟</p>
+                    <p class="text-4xl mb-3 card-icon">🌟</p>
                     <h4 class="text-xl font-bold text-white">Testimonial & Review Collector Bot</h4>
                     <p class="text-zinc-300 mt-2">Collects 5-star feedback automatically after each sale.</p>
                 </div>
@@ -463,24 +615,71 @@
             <p class="text-zinc-300 text-lg mb-8 max-w-3xl mx-auto md:mx-0">Your dream system, powered by WolfNode.</p>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 <div class="p-6 rounded-xl card">
-                    <p class="text-4xl mb-3">📈</p>
+                    <p class="text-4xl mb-3 card-icon">📈</p>
                     <h4 class="text-xl font-bold text-white">Sales Dashboard + Revenue Tracker</h4>
                     <p class="text-zinc-300 mt-2">Live view of your sales, leads, and payments — all in one screen.</p>
                 </div>
                 <div class="p-6 rounded-xl card">
-                    <p class="text-4xl mb-3">🧑‍🏫</p>
+                    <p class="text-4xl mb-3 card-icon">🧑‍🏫</p>
                     <h4 class="text-xl font-bold text-white">Training + Course Delivery Bots</h4>
                     <p class="text-zinc-300 mt-2">AI sends lessons, quizzes, and homework without any human needed.</p>
                 </div>
                 <div class="p-6 rounded-xl card">
-                    <p class="text-4xl mb-3">🎤</p>
+                    <p class="text-4xl mb-3 card-icon">🎤</p>
                     <h4 class="text-xl font-bold text-white">AI Interview or Application Agent</h4>
                     <p class="text-zinc-300 mt-2">Screens applicants, asks questions, and records results.</p>
                 </div>
                 <div class="p-6 rounded-xl card">
-                    <p class="text-4xl mb-3">📞</p>
+                    <p class="text-4xl mb-3 card-icon">📞</p>
                     <h4 class="text-xl font-bold text-white">Voice Call AI Agent (Add-on)</h4>
                     <p class="text-zinc-300 mt-2">AI calls your clients and speaks naturally to qualify or book.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Client Success Stories -->
+<section class="py-20 bg-black/50">
+    <div class="container mx-auto px-6">
+        <div class="text-center mb-12">
+            <h2 class="text-4xl font-bold text-white text-glow">WolfNode in Action</h2>
+            <p class="text-zinc-400 mt-2">See how we've transformed businesses</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="relative rounded-xl overflow-hidden aspect-video">
+                <video class="w-full h-full object-cover" poster="https://images.unsplash.com/photo-1551288049-bebda4e38f71" controls>
+                    <source src="https://example.com/videos/client-testimonial-1.mp4" type="video/mp4">
+                </video>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-6">
+                    <div>
+                        <p class="text-white font-bold text-xl">"Our revenue grew 300% with WolfNode automations"</p>
+                        <p class="text-violet-300">- Sarah K., E-commerce Founder</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-4">
+                <div class="bg-zinc-900/80 rounded-xl p-6 border border-violet-500/20">
+                    <div class="text-violet-400 text-3xl mb-3">📈</div>
+                    <p class="text-white font-bold">+450%</p>
+                    <p class="text-zinc-400 text-sm">Lead conversion increase</p>
+                </div>
+                <div class="bg-zinc-900/80 rounded-xl p-6 border border-violet-500/20">
+                    <div class="text-violet-400 text-3xl mb-3">⏱️</div>
+                    <p class="text-white font-bold">80%</p>
+                    <p class="text-zinc-400 text-sm">Time saved on admin</p>
+                </div>
+                <div class="bg-zinc-900/80 rounded-xl p-6 border border-violet-500/20">
+                    <div class="text-violet-400 text-3xl mb-3">💰</div>
+                    <p class="text-white font-bold">$1.2M</p>
+                    <p class="text-zinc-400 text-sm">Generated in sales</p>
+                </div>
+                <div class="bg-zinc-900/80 rounded-xl p-6 border border-violet-500/20">
+                    <div class="text-violet-400 text-3xl mb-3">🤖</div>
+                    <p class="text-white font-bold">24/7</p>
+                    <p class="text-zinc-400 text-sm">AI agent availability</p>
                 </div>
             </div>
         </div>
@@ -540,7 +739,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <!-- Course 1 -->
             <div class="p-8 rounded-xl card">
-                <i class="w-12 h-12 text-violet-400 mb-4 text-glow" data-lucide="graduation-cap"></i>
+                <i class="w-12 h-12 text-violet-400 mb-4 text-glow card-icon" data-lucide="graduation-cap"></i>
                 <h3 class="text-2xl font-bold text-white">Automation Fundamentals</h3>
                 <p class="text-zinc-300 mt-2">Learn the core principles of business automation, workflow design, and process optimization.</p>
                 <ul class="mt-4 space-y-2 text-zinc-300 text-sm">
@@ -553,7 +752,7 @@
 
             <!-- Course 2 -->
             <div class="p-8 rounded-xl card">
-                <i class="w-12 h-12 text-violet-400 mb-4 text-glow" data-lucide="brain"></i>
+                <i class="w-12 h-12 text-violet-400 mb-4 text-glow card-icon" data-lucide="brain"></i>
                 <h3 class="text-2xl font-bold text-white">AI Agent Development</h3>
                 <p class="text-zinc-300 mt-2">Dive deep into building intelligent AI chatbots and agents for sales, support, and lead generation.</p>
                 <ul class="mt-4 space-y-2 text-zinc-300 text-sm">
@@ -566,7 +765,7 @@
 
             <!-- Community Card -->
             <div class="p-8 rounded-xl card">
-                <i class="w-12 h-12 text-violet-400 mb-4 text-glow" data-lucide="users"></i>
+                <i class="w-12 h-12 text-violet-400 mb-4 text-glow card-icon" data-lucide="users"></i>
                 <h3 class="text-2xl font-bold text-white">The Wolves Community</h3>
                 <p class="text-zinc-300 mt-2">Connect with a thriving pack of automation enthusiasts and experts. Share, learn, and grow together.</p>
                 <ul class="mt-4 space-y-2 text-zinc-300 text-sm">
@@ -682,7 +881,7 @@
 <div class="card p-8 rounded-xl pricing-card">
 <h3 class="text-2xl font-bold text-white">Starter Wolf 🐾</h3>
 <p class="text-zinc-400 mt-1">A powerful one-off setup.</p>
-<p class="text-5xl font-black text-white mt-6">$99 <span class="text-xl font-medium text-zinc-400">/ one-off</span></p>
+<p class="text-5xl font-black text-white mt-6 price">$99 <span class="text-xl font-medium text-zinc-400">/ one-off</span></p>
 <ul class="mt-8 space-y-4 text-zinc-300">
 <li class="flex items-center"><i class="w-5 h-5 text-green-500 mr-2" data-lucide="check"></i> 1 Core Workflow Automation</li>
 <li class="flex items-center"><i class="w-5 h-5 text-green-500 mr-2" data-lucide="check"></i> Up to 3 App Integrations</li>
@@ -698,7 +897,7 @@
 </div>
 <h3 class="text-2xl font-bold text-white">Pack Builder 🐺</h3>
 <p class="text-zinc-400 mt-1">For growing businesses.</p>
-<p class="text-5xl font-black text-white mt-6">$250 <span class="text-xl font-medium text-zinc-400">/ month</span></p>
+<p class="text-5xl font-black text-white mt-6 price">$250 <span class="text-xl font-medium text-zinc-400">/ month</span></p>
 <ul class="mt-8 space-y-4 text-zinc-300">
 <li class="flex items-center"><i class="w-5 h-5 text-green-500 mr-2" data-lucide="check"></i> 3 Core Workflows</li>
 <li class="flex items-center"><i class="w-5 h-5 text-green-500 mr-2" data-lucide="check"></i> Unlimited App Integrations</li>
@@ -712,7 +911,7 @@
 <div class="card p-8 rounded-xl pricing-card">
 <h3 class="text-2xl font-bold text-white">Alpha Mode 🐺⚡</h3>
 <p class="text-zinc-400 mt-1">For total domination.</p>
-<p class="text-5xl font-black text-white mt-6">Custom</p>
+<p class="text-5xl font-black text-white mt-6 price">Custom</p>
 <ul class="mt-8 space-y-4 text-zinc-300">
 <li class="flex items-center"><i class="w-5 h-5 text-green-500 mr-2" data-lucide="check"></i> Everything in Pack Builder</li>
 <li class="flex items-center"><i class="w-5 h-5 text-green-500 mr-2" data-lucide="check"></i> Advanced AI Agents</li>
@@ -802,6 +1001,129 @@
         mobileMenu.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
                 mobileMenu.classList.remove('active');
+            });
+        });
+
+        // Initialize Vanta.js background
+        VANTA.NET({
+            el: "#vanta-bg",
+            color: 0x7c3aed,
+            backgroundColor: 0x0,
+            points: 12,
+            maxDistance: 20,
+            spacing: 15
+        });
+
+        // Animated counter
+        const counters = document.querySelectorAll('.stat-counter');
+        const speed = 200;
+        
+        counters.forEach(counter => {
+            const target = +counter.getAttribute('data-target');
+            const count = +counter.innerText;
+            const increment = target / speed;
+            
+            if(count < target) {
+                counter.innerText = Math.ceil(count + increment);
+                setTimeout(updateCount, 1);
+            } else {
+                counter.innerText = target;
+            }
+            
+            function updateCount() {
+                const count = +counter.innerText;
+                if(count < target) {
+                    counter.innerText = Math.ceil(count + increment);
+                    setTimeout(updateCount, 1);
+                } else {
+                    counter.innerText = target;
+                }
+            }
+        });
+
+        // AI Demo functionality
+        document.getElementById('ai-send').addEventListener('click', function() {
+            const input = document.getElementById('ai-input');
+            const demoArea = document.getElementById('ai-demo');
+            
+            if(input.value.trim()) {
+                // Add user message
+                demoArea.innerHTML += `
+                    <div class="user-message p-4 rounded-lg ml-auto">
+                        <p class="text-white font-bold">You:</p>
+                        <p>${input.value}</p>
+                    </div>
+                `;
+                
+                // Simulate AI typing
+                demoArea.innerHTML += `
+                    <div class="ai-typing p-4">
+                        WolfNode AI is typing...
+                    </div>
+                `;
+                
+                demoArea.scrollTop = demoArea.scrollHeight;
+                
+                // Simulate response after delay
+                setTimeout(() => {
+                    document.querySelector('.ai-typing').remove();
+                    
+                    const responses = [
+                        "Great question! Our automation systems can handle that exact use case with a custom workflow.",
+                        "For that scenario, I'd recommend our AI Sales Agent package combined with a CRM integration.",
+                        "That's one of our most popular automations! We've built similar systems for 37 clients this month.",
+                        "Our Academy covers that exact topic in Module 3 of the Advanced Automation course.",
+                        "That process can typically be automated with 2-3 connected workflows in our system."
+                    ];
+                    
+                    const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+                    
+                    demoArea.innerHTML += `
+                        <div class="ai-message p-4 rounded-lg">
+                            <p class="text-violet-400 font-bold">WolfNode AI:</p>
+                            <p>${randomResponse}</p>
+                        </div>
+                    `;
+                    
+                    demoArea.scrollTop = demoArea.scrollHeight;
+                }, 1500);
+                
+                input.value = '';
+            }
+        });
+
+        // Scroll reveal animations
+        ScrollReveal().reveal('.card', {
+            delay: 200,
+            distance: '20px',
+            origin: 'bottom',
+            interval: 100,
+            easing: 'cubic-bezier(0.5, 0, 0, 1)',
+            reset: true
+        });
+        
+        ScrollReveal().reveal('h2, h3', {
+            delay: 100,
+            distance: '50px',
+            origin: 'left',
+            easing: 'ease-out'
+        });
+
+        // Hover sound effects
+        document.querySelectorAll('a, button').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                const hoverSound = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-arcade-game-jump-coin-216.mp3');
+                hoverSound.volume = 0.2;
+                hoverSound.play();
+            });
+        });
+        
+        // Click sound effects
+        document.querySelectorAll('.cta-button').forEach(el => {
+            el.addEventListener('click', () => {
+                const clickSound = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-positive-interface-beep-221.mp3');
+                clickSound.volume = 0.3;
+                clickSound.play();
             });
         });
     });
