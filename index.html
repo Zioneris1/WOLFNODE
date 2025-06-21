@@ -13,33 +13,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
-<script type="module">
-    import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
-
-    createChat({
-        webhookUrl: 'https://n8n-service-0qtq.onrender.com/webhook/5cb3f989-6275-4c16-969c-b27304e761be/chat',
-        initialMessages: [
-            'The pack welcomes you. 🐺',
-            'I am Alpha, your guide to domination. How can I assist you today?'
-        ],
-        i18n: {
-            en: {
-                title: 'WolfNode Command',
-                subtitle: "Speak with Alpha - your automated hunting companion",
-                footer: '© 2023 WolfNode Pack',
-                getStarted: 'New Hunt',
-                inputPlaceholder: 'Type your command...',
-            },
-        },
-        metadata: {
-            agentName: 'Alpha'
-        },
-        mode: 'window',
-        loadPreviousSession: true,
-        showWelcomeScreen: false,
-        defaultLanguage: 'en'
-    });
-</script>
+<!-- 3D Wolf Model Loader -->
+<script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/loaders/GLTFLoader.js"></script>
 <style>
         @keyframes subtle-glow {
             0% { box-shadow: 0 0 15px rgba(255, 165, 0, 0.4), inset 0 0 5px rgba(255, 165, 0, 0.3); }
@@ -702,9 +677,27 @@
         .whatsapp-button:hover {
             background: linear-gradient(135deg, #128C7E, #075E54);
         }
+
+        /* 3D Wolf Cursor Styles */
+        canvas[data-engine="three.js r128"] {
+            pointer-events: none !important;
+        }
+
+        /* Blood Moon Challenge Styles */
+        .blood-moon-challenge {
+            background: linear-gradient(135deg, rgba(255, 0, 0, 0.1), rgba(0, 0, 0, 0.7));
+            border: 1px solid rgba(255, 0, 0, 0.3);
+        }
+
+        .blood-moon-challenge:hover {
+            border-color: rgba(255, 0, 0, 0.6);
+        }
     </style>
 </head>
 <body class="antialiased">
+<!-- 3D Wolf Cursor Container -->
+<div id="wolf-cursor"></div>
+
 <!-- Top G Banner -->
 <div class="top-g-banner py-2 text-center text-white font-bold text-sm uppercase tracking-wider">
     WOLFNODE - THE ULTIMATE MONEY MAKING PACK
@@ -784,6 +777,18 @@
 </div>
 </div>
 </section>
+
+<!-- Geo-Targeted Social Proof -->
+<div class="container mx-auto px-6 max-w-2xl">
+    <div class="geo-social-proof bg-zinc-900/80 p-4 rounded-lg border border-orange-500/30 mb-8 text-center" style="display: none;">
+        <div class="flex justify-center items-center space-x-2">
+            <i data-lucide="users" class="w-5 h-5 text-orange-500"></i>
+            <span id="geo-pack-count" class="font-bold text-orange-400">12</span>
+            <span>wolves are hunting near</span>
+            <span id="geo-city" class="font-bold">your location</span>
+        </div>
+    </div>
+</div>
 
 <!-- Luxury Lifestyle Section -->
 <section class="py-20 bg-black">
@@ -1254,6 +1259,58 @@
             </div>
         </div>
         
+        <!-- Blood Moon Challenge -->
+        <div class="blood-moon-challenge p-6 rounded-xl border-2 border-red-900/50 bg-gradient-to-b from-red-900/20 to-black mt-10">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div>
+                    <div class="flex items-center mb-2">
+                        <i data-lucide="moon" class="w-6 h-6 text-red-500 mr-2"></i>
+                        <h3 class="text-xl font-bold text-white">BLOOD MOON CHALLENGE</h3>
+                    </div>
+                    <p class="text-zinc-300">7 days to prove your worth. Hunt or be hunted.</p>
+                </div>
+                <div class="mt-4 md:mt-0">
+                    <button id="startChallenge" class="bg-red-600 hover:bg-red-700 text-white font-bold px-6 py-3 rounded-lg flex items-center transition">
+                        <i data-lucide="sword" class="w-5 h-5 mr-2"></i>
+                        Accept Challenge
+                    </button>
+                </div>
+            </div>
+            
+            <div id="challengeModal" class="hidden fixed inset-0 bg-black/90 z-[999] flex items-center justify-center p-4">
+                <div class="bg-zinc-900 border border-red-500/30 rounded-xl p-8 max-w-md w-full relative">
+                    <button id="closeModal" class="absolute top-4 right-4 text-zinc-400 hover:text-white">
+                        <i data-lucide="x"></i>
+                    </button>
+                    
+                    <div class="text-center">
+                        <i data-lucide="sword" class="w-12 h-12 text-red-500 mx-auto mb-4"></i>
+                        <h3 class="text-2xl font-bold text-white mb-2">CHALLENGE ACCEPTED</h3>
+                        <p class="text-zinc-300 mb-6">7 days. No risk. Maximum gain.</p>
+                        
+                        <div class="grid grid-cols-7 gap-2 mb-6">
+                            <div class="h-2 bg-zinc-800 rounded-full"></div>
+                            <div class="h-2 bg-zinc-800 rounded-full"></div>
+                            <div class="h-2 bg-zinc-800 rounded-full"></div>
+                            <div class="h-2 bg-zinc-800 rounded-full"></div>
+                            <div class="h-2 bg-zinc-800 rounded-full"></div>
+                            <div class="h-2 bg-zinc-800 rounded-full"></div>
+                            <div class="h-2 bg-red-500 rounded-full"></div>
+                        </div>
+                        
+                        <p class="text-sm text-zinc-400 mb-6">
+                            Complete 3 training modules in 7 days and your first month is FREE.
+                            Fail and you're out of the pack.
+                        </p>
+                        
+                        <button class="w-full bg-red-600 hover:bg-red-700 text-white font-bold px-6 py-3 rounded-lg transition">
+                            Begin Hunt
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
         <!-- Enrollment CTA -->
         <div class="mt-16 max-w-4xl mx-auto">
             <div class="enrollment-card p-8 rounded-xl text-center">
@@ -1484,6 +1541,107 @@
         easing: 'cubic-bezier(0.5, 0, 0, 1)',
         duration: 800
     });
+
+    // 3D Wolf Cursor
+    let wolfModel;
+    const wolfScene = new THREE.Scene();
+    const wolfCamera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
+    const wolfRenderer = new THREE.WebGLRenderer({ alpha: true });
+    wolfRenderer.setSize(80, 80);
+    document.getElementById('wolf-cursor').appendChild(wolfRenderer.domElement);
+    wolfRenderer.domElement.style.position = 'fixed';
+    wolfRenderer.domElement.style.pointerEvents = 'none';
+    wolfRenderer.domElement.style.zIndex = '9999';
+    wolfRenderer.domElement.style.transition = 'transform 0.1s ease-out';
+
+    // Position slightly offset from cursor
+    document.addEventListener('mousemove', (e) => {
+        wolfRenderer.domElement.style.left = `${e.clientX + 15}px`;
+        wolfRenderer.domElement.style.top = `${e.clientY + 15}px`;
+    });
+
+    // Load wolf model
+    new THREE.GLTFLoader().load(
+        'https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/models/gltf/Wolf.glb',
+        (gltf) => {
+            wolfModel = gltf.scene;
+            wolfModel.scale.set(0.5, 0.5, 0.5);
+            wolfScene.add(wolfModel);
+            wolfCamera.position.z = 5;
+            
+            // Rotate model to face direction
+            let targetRotation = 0;
+            let lastX = 0;
+            
+            document.addEventListener('mousemove', (e) => {
+                const direction = e.clientX > lastX ? Math.PI/4 : -Math.PI/4;
+                targetRotation = direction;
+                lastX = e.clientX;
+            });
+            
+            // Animation loop
+            function animate() {
+                requestAnimationFrame(animate);
+                if (wolfModel) {
+                    wolfModel.rotation.y += (targetRotation - wolfModel.rotation.y) * 0.1;
+                }
+                wolfRenderer.render(wolfScene, wolfCamera);
+            }
+            animate();
+        }
+    );
+
+    // Geo-targeting script
+    fetch('https://ipapi.co/json/')
+        .then(response => response.json())
+        .then(data => {
+            const cities = {
+                'US': ['New York', 'Los Angeles', 'Chicago', 'Austin'],
+                'UK': ['London', 'Manchester', 'Birmingham'],
+                'CA': ['Toronto', 'Vancouver', 'Montreal'],
+                'AU': ['Sydney', 'Melbourne', 'Brisbane'],
+                'DE': ['Berlin', 'Munich', 'Hamburg']
+            };
+            
+            const country = data.country;
+            const city = cities[country] ? cities[country][Math.floor(Math.random() * cities[country].length)] : data.city;
+            
+            // Randomize pack count between 5-20 for realism
+            const packCount = Math.floor(Math.random() * 15) + 5;
+            
+            document.getElementById('geo-city').textContent = city;
+            document.getElementById('geo-pack-count').textContent = packCount;
+            
+            // Only show if we got valid location
+            document.querySelector('.geo-social-proof').style.display = 'block';
+        })
+        .catch(() => {
+            // Fallback if API fails
+            document.querySelector('.geo-social-proof').style.display = 'none';
+        });
+
+    // Blood Moon Challenge Modal
+    document.getElementById('startChallenge').addEventListener('click', () => {
+        document.getElementById('challengeModal').style.display = 'flex';
+    });
+
+    document.getElementById('closeModal').addEventListener('click', () => {
+        document.getElementById('challengeModal').style.display = 'none';
+    });
+
+    // Animate progress bar (example - would hook to real progress)
+    const days = document.querySelectorAll('.blood-moon-challenge .grid div');
+    let currentDay = 0;
+
+    const progressInterval = setInterval(() => {
+        if (currentDay < days.length) {
+            days[currentDay].classList.remove('bg-zinc-800');
+            days[currentDay].classList.add('bg-red-500');
+            currentDay++;
+        } else {
+            clearInterval(progressInterval);
+        }
+    }, 1000);
 </script>
 
 <!-- PayPal Buttons -->
