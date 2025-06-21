@@ -15,6 +15,33 @@
 <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
 <!-- 3D Wolf Model Loader -->
 <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/loaders/GLTFLoader.js"></script>
+<script type="module">
+    import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
+
+    createChat({
+        webhookUrl: 'https://n8n-service-0qtq.onrender.com/webhook/5cb3f989-6275-4c16-969c-b27304e761be/chat',
+        initialMessages: [
+            'The pack welcomes you. 🐺',
+            'I am Alpha, your guide to domination. How can I assist you today?'
+        ],
+        i18n: {
+            en: {
+                title: 'WolfNode Command',
+                subtitle: "Speak with Alpha - your automated hunting companion",
+                footer: '© 2023 WolfNode Pack',
+                getStarted: 'New Hunt',
+                inputPlaceholder: 'Type your command...',
+            },
+        },
+        metadata: {
+            agentName: 'Alpha'
+        },
+        mode: 'window',
+        loadPreviousSession: true,
+        showWelcomeScreen: false,
+        defaultLanguage: 'en'
+    });
+</script>
 <style>
         @keyframes subtle-glow {
             0% { box-shadow: 0 0 15px rgba(255, 165, 0, 0.4), inset 0 0 5px rgba(255, 165, 0, 0.3); }
@@ -1270,43 +1297,10 @@
                     <p class="text-zinc-300">7 days to prove your worth. Hunt or be hunted.</p>
                 </div>
                 <div class="mt-4 md:mt-0">
-                    <button id="startChallenge" class="bg-red-600 hover:bg-red-700 text-white font-bold px-6 py-3 rounded-lg flex items-center transition">
+                    <a href="https://n8n-service-0qtq.onrender.com/form/e0277fab-2ac2-4ff0-a316-dde40e95a871" class="bg-red-600 hover:bg-red-700 text-white font-bold px-6 py-3 rounded-lg flex items-center transition">
                         <i data-lucide="sword" class="w-5 h-5 mr-2"></i>
                         Accept Challenge
-                    </button>
-                </div>
-            </div>
-            
-            <div id="challengeModal" class="hidden fixed inset-0 bg-black/90 z-[999] flex items-center justify-center p-4">
-                <div class="bg-zinc-900 border border-red-500/30 rounded-xl p-8 max-w-md w-full relative">
-                    <button id="closeModal" class="absolute top-4 right-4 text-zinc-400 hover:text-white">
-                        <i data-lucide="x"></i>
-                    </button>
-                    
-                    <div class="text-center">
-                        <i data-lucide="sword" class="w-12 h-12 text-red-500 mx-auto mb-4"></i>
-                        <h3 class="text-2xl font-bold text-white mb-2">CHALLENGE ACCEPTED</h3>
-                        <p class="text-zinc-300 mb-6">7 days. No risk. Maximum gain.</p>
-                        
-                        <div class="grid grid-cols-7 gap-2 mb-6">
-                            <div class="h-2 bg-zinc-800 rounded-full"></div>
-                            <div class="h-2 bg-zinc-800 rounded-full"></div>
-                            <div class="h-2 bg-zinc-800 rounded-full"></div>
-                            <div class="h-2 bg-zinc-800 rounded-full"></div>
-                            <div class="h-2 bg-zinc-800 rounded-full"></div>
-                            <div class="h-2 bg-zinc-800 rounded-full"></div>
-                            <div class="h-2 bg-red-500 rounded-full"></div>
-                        </div>
-                        
-                        <p class="text-sm text-zinc-400 mb-6">
-                            Complete 3 training modules in 7 days and your first month is FREE.
-                            Fail and you're out of the pack.
-                        </p>
-                        
-                        <button class="w-full bg-red-600 hover:bg-red-700 text-white font-bold px-6 py-3 rounded-lg transition">
-                            Begin Hunt
-                        </button>
-                    </div>
+                    </a>
                 </div>
             </div>
         </div>
@@ -1429,38 +1423,58 @@
             </div>
             
             <div>
-                <h4 class="text-lg font-semibold text-white mb-4">Resources</h4>
-                <ul class="space-y-2">
-                    <li><a href="#" class="text-zinc-400 hover:text-orange-400 transition">Hunt Manuals</a></li>
-                    <li><a href="#" class="text-zinc-400 hover:text-orange-400 transition">Automation Tools</a></li>
-                    <li><a href="#" class="text-zinc-400 hover:text-orange-400 transition">Wolf Den (Login)</a></li>
-                    <li><a href="#" class="text-zinc-400 hover:text-orange-400 transition">FAQ</a></li>
+                <h4 class="text-lg font-semibold text-white mb-4">Resources</h                 <ul class="space-y-2">
+                    <li><a href="#" class="text-zinc-400 hover:text-orange-400 transition">Hunting Grounds</a></li>
+                    <li><a href="#" class="text-zinc-400 hover:text-orange-400 transition">Wolf Tactics</a></li>
+                    <li><a href="#" class="text-zinc-400 hover:text-orange-400 transition">Alpha Archives</a></li>
                 </ul>
             </div>
             
             <div>
-                <h4 class="text-lg font-semibold text-white mb-4">Howl at Us</h4>
-                <ul class="space-y-2">
-                    <li class="flex items-center text-zinc-400"><i data-lucide="mail" class="w-4 h-4 mr-2"></i> wolfnodehq@gmail.com</li>
-                    <li class="flex items-center text-zinc-400"><i data-lucide="twitter" class="w-4 h-4 mr-2"></i> @WolfNodeHQ</li>
-                    <li class="flex items-center text-zinc-400"><i data-lucide="instagram" class="w-4 h-4 mr-2"></i> <a href="https://www.instagram.com/wolf_node?igsh=MWg5aTkyYW1sNG54OA%3D%3D&utm_source=qr" target="_blank">@wolf_node</a></li>
-                </ul>
+                <h4 class="text-lg font-semibold text-white mb-4">Connect</h4>
+                <div class="flex space-x-4 mb-4">
+                    <a href="#" class="text-zinc-400 hover:text-orange-400 transition">
+                        <i data-lucide="twitter"></i>
+                    </a>
+                    <a href="#" class="text-zinc-400 hover:text-orange-400 transition">
+                        <i data-lucide="instagram"></i>
+                    </a>
+                    <a href="#" class="text-zinc-400 hover:text-orange-400 transition">
+                        <i data-lucide="discord"></i>
+                    </a>
+                </div>
+                <a href="mailto:alpha@wolfnode.com" class="text-orange-400 hover:text-orange-300 transition">alpha@wolfnode.com</a>
             </div>
         </div>
         
         <div class="border-t border-t-zinc-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
-            <p class="text-zinc-500 text-sm mb-4 md:mb-0">© 2023 WolfNode. All rights reserved. Alpha as fuck.</p>
+            <p class="text-zinc-500 text-sm mb-4 md:mb-0">© 2023 WolfNode Pack. All rights reserved.</p>
             <div class="flex space-x-6">
-                <a href="#" class="text-zinc-500 hover:text-orange-400 transition">Terms</a>
-                <a href="#" class="text-zinc-500 hover:text-orange-400 transition">Privacy</a>
-                <a href="#" class="text-zinc-500 hover:text-orange-400 transition">Cookies</a>
+                <a href="#" class="text-zinc-500 hover:text-orange-400 transition text-sm">Terms</a>
+                <a href="#" class="text-zinc-500 hover:text-orange-400 transition text-sm">Privacy</a>
+                <a href="#" class="text-zinc-500 hover:text-orange-400 transition text-sm">Refund Policy</a>
             </div>
         </div>
     </div>
 </footer>
 
-<!-- Scripts -->
+<!-- WhatsApp Floating Button -->
+<div class="fixed bottom-6 right-6 z-50">
+    <a href="https://wa.me/15551234567" class="whatsapp-button flex items-center px-5 py-3 rounded-full shadow-lg">
+        <i data-lucide="message-circle" class="w-5 h-5 mr-2"></i>
+        Join the Hunt
+    </a>
+</div>
+
+<!-- Scroll to Top Button -->
+<button id="scrollToTop" class="fixed bottom-6 left-6 bg-zinc-800/80 hover:bg-orange-600 text-white p-3 rounded-full shadow-lg transition-all opacity-0 invisible">
+    <i data-lucide="arrow-up" class="w-5 h-5"></i>
+</button>
+
 <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+    
     // Mobile menu toggle
     const menuToggle = document.getElementById('menuToggle');
     const mobileMenu = document.getElementById('mobileMenu');
@@ -1474,36 +1488,23 @@
         mobileMenu.classList.remove('active');
     });
     
-    // FAQ toggle
-    function toggleFAQ(button) {
-        const faqContent = button.nextElementSibling;
-        const icon = button.querySelector('i');
-        
-        faqContent.classList.toggle('hidden');
-        icon.classList.toggle('rotate-180');
-    }
-    
-    // Initialize Lucide icons
-    lucide.createIcons();
-    
-    // Initialize Vanta.js background
-    VANTA.NET({
-        el: "#vanta-bg",
-        mouseControls: true,
-        touchControls: true,
-        gyroControls: false,
-        minHeight: 200.00,
-        minWidth: 200.00,
-        scale: 1.00,
-        scaleMobile: 1.00,
-        color: 0xFFA500,
-        backgroundColor: 0x0,
-        points: 12.00,
-        maxDistance: 22.00,
-        spacing: 18.00
+    // Close mobile menu when clicking a link
+    document.querySelectorAll('#mobileMenu a').forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+        });
     });
     
-    // Animate stats counters
+    // Scroll reveal animations
+    ScrollReveal().reveal('.card, .pricing-tier, .faq-item', {
+        delay: 200,
+        distance: '20px',
+        origin: 'bottom',
+        interval: 100,
+        easing: 'cubic-bezier(0.5, 0, 0, 1)'
+    });
+    
+    // Animate stats counter
     const counters = document.querySelectorAll('.stat-counter');
     const speed = 200;
     
@@ -1532,174 +1533,194 @@
         }
     });
     
-    // Initialize ScrollReveal
-    ScrollReveal().reveal('.card, .value-prop-card, .pricing-tier, .initiation-step, .pack-member, .hierarchy-step', {
-        delay: 200,
-        distance: '20px',
-        origin: 'bottom',
-        interval: 100,
-        easing: 'cubic-bezier(0.5, 0, 0, 1)',
-        duration: 800
+    // Vanta.js background
+    VANTA.NET({
+        el: "#vanta-bg",
+        mouseControls: true,
+        touchControls: true,
+        gyroControls: false,
+        minHeight: 200.00,
+        minWidth: 200.00,
+        scale: 1.00,
+        scaleMobile: 1.00,
+        color: 0xff8c00,
+        backgroundColor: 0x0,
+        points: 10.00,
+        maxDistance: 20.00,
+        spacing: 15.00
     });
-
-    // 3D Wolf Cursor
-    let wolfModel;
-    const wolfScene = new THREE.Scene();
-    const wolfCamera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
-    const wolfRenderer = new THREE.WebGLRenderer({ alpha: true });
-    wolfRenderer.setSize(80, 80);
-    document.getElementById('wolf-cursor').appendChild(wolfRenderer.domElement);
-    wolfRenderer.domElement.style.position = 'fixed';
-    wolfRenderer.domElement.style.pointerEvents = 'none';
-    wolfRenderer.domElement.style.zIndex = '9999';
-    wolfRenderer.domElement.style.transition = 'transform 0.1s ease-out';
-
-    // Position slightly offset from cursor
-    document.addEventListener('mousemove', (e) => {
-        wolfRenderer.domElement.style.left = `${e.clientX + 15}px`;
-        wolfRenderer.domElement.style.top = `${e.clientY + 15}px`;
+    
+    // Scroll to top button
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+    
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+            scrollToTopBtn.classList.remove('opacity-0', 'invisible');
+            scrollToTopBtn.classList.add('opacity-100', 'visible');
+        } else {
+            scrollToTopBtn.classList.remove('opacity-100', 'visible');
+            scrollToTopBtn.classList.add('opacity-0', 'invisible');
+        }
     });
-
-    // Load wolf model
-    new THREE.GLTFLoader().load(
-        'https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/models/gltf/Wolf.glb',
-        (gltf) => {
-            wolfModel = gltf.scene;
-            wolfModel.scale.set(0.5, 0.5, 0.5);
-            wolfScene.add(wolfModel);
-            wolfCamera.position.z = 5;
-            
-            // Rotate model to face direction
-            let targetRotation = 0;
-            let lastX = 0;
-            
-            document.addEventListener('mousemove', (e) => {
-                const direction = e.clientX > lastX ? Math.PI/4 : -Math.PI/4;
-                targetRotation = direction;
-                lastX = e.clientX;
+    
+    scrollToTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+    
+    // FAQ toggle function
+    function toggleFAQ(button) {
+        const faqContent = button.nextElementSibling;
+        const icon = button.querySelector('i');
+        
+        faqContent.classList.toggle('hidden');
+        icon.classList.toggle('rotate-180');
+    }
+    
+    // Geo-targeted social proof
+    function showGeoSocialProof() {
+        // In a real implementation, you would fetch this data from an API
+        // based on the user's IP address or location
+        const cities = ['New York', 'Los Angeles', 'Chicago', 'Houston', 'Phoenix', 'London', 'Toronto', 'Sydney'];
+        const randomCity = cities[Math.floor(Math.random() * cities.length)];
+        const randomCount = Math.floor(Math.random() * 20) + 5;
+        
+        document.getElementById('geo-city').textContent = randomCity;
+        document.getElementById('geo-pack-count').textContent = randomCount;
+        document.querySelector('.geo-social-proof').style.display = 'block';
+    }
+    
+    // Show geo social proof after a delay
+    setTimeout(showGeoSocialProof, 3000);
+    
+    // PayPal Buttons
+    function loadPayPalButtons() {
+        // Omega Tier
+        paypal.Buttons({
+            style: {
+                shape: 'pill',
+                color: 'orange',
+                layout: 'vertical',
+                label: 'subscribe'
+            },
+            createSubscription: function(data, actions) {
+                return actions.subscription.create({
+                    'plan_id': 'P-7MK29800P7122081RNBLC3LY'
+                });
+            },
+            onApprove: function(data, actions) {
+                alert('Welcome to the Wolf Pack! Your Omega subscription has been activated.');
+            }
+        }).render('#paypal-button-container-P-7MK29800P7122081RNBLC3LY');
+        
+        // Beta Tier
+        paypal.Buttons({
+            style: {
+                shape: 'pill',
+                color: 'orange',
+                layout: 'vertical',
+                label: 'subscribe'
+            },
+            createSubscription: function(data, actions) {
+                return actions.subscription.create({
+                    'plan_id': 'P-0SH22258UG427045YNBLC6PI'
+                });
+            },
+            onApprove: function(data, actions) {
+                alert('Beta Hunter status confirmed! Your enhanced training begins now.');
+            }
+        }).render('#paypal-button-container-P-0SH22258UG427045YNBLC6PI');
+        
+        // Alpha Tier
+        paypal.Buttons({
+            style: {
+                shape: 'pill',
+                color: 'gold',
+                layout: 'vertical',
+                label: 'subscribe'
+            },
+            createSubscription: function(data, actions) {
+                return actions.subscription.create({
+                    'plan_id': 'P-94161393PF7561310NBLDABI'
+                });
+            },
+            onApprove: function(data, actions) {
+                alert('Alpha status achieved! The pack awaits your command.');
+            }
+        }).render('#paypal-button-container-P-94161393PF7561310NBLDABI');
+    }
+    
+    // Load PayPal SDK
+    function loadPayPalSDK() {
+        const script = document.createElement('script');
+        script.src = 'https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID&vault=true&intent=subscription';
+        script.addEventListener('load', loadPayPalButtons);
+        document.body.appendChild(script);
+    }
+    
+    // Load PayPal SDK when document is loaded
+    document.addEventListener('DOMContentLoaded', loadPayPalSDK);
+    
+    // 3D Wolf Cursor (simplified example)
+    function initWolfCursor() {
+        const canvas = document.getElementById('wolf-cursor');
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
+        renderer.setSize(50, 50);
+        
+        const geometry = new THREE.BoxGeometry(1, 1, 1);
+        const material = new THREE.MeshBasicMaterial({ color: 0xff8c00 });
+        const cube = new THREE.Mesh(geometry, material);
+        scene.add(cube);
+        
+        camera.position.z = 2;
+        
+        function animate() {
+            requestAnimationFrame(animate);
+            cube.rotation.x += 0.01;
+            cube.rotation.y += 0.01;
+            renderer.render(scene, camera);
+        }
+        
+        animate();
+        
+        document.addEventListener('mousemove', (e) => {
+            canvas.style.position = 'fixed';
+            canvas.style.left = (e.clientX - 25) + 'px';
+            canvas.style.top = (e.clientY - 25) + 'px';
+            canvas.style.pointerEvents = 'none';
+            canvas.style.zIndex = '9999';
+        });
+    }
+    
+    // Initialize 3D cursor
+    // initWolfCursor(); // Uncomment when you have proper 3D wolf model
+    
+    // Form submission handler
+    document.querySelectorAll('form').forEach(form => {
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(form);
+            const response = await fetch(form.action, {
+                method: 'POST',
+                body: formData
             });
             
-            // Animation loop
-            function animate() {
-                requestAnimationFrame(animate);
-                if (wolfModel) {
-                    wolfModel.rotation.y += (targetRotation - wolfModel.rotation.y) * 0.1;
-                }
-                wolfRenderer.render(wolfScene, wolfCamera);
+            if (response.ok) {
+                alert('Submission received! The pack will howl back soon.');
+                form.reset();
+            } else {
+                alert('Hunting error! Try again or contact alpha@wolfnode.com');
             }
-            animate();
-        }
-    );
-
-    // Geo-targeting script
-    fetch('https://ipapi.co/json/')
-        .then(response => response.json())
-        .then(data => {
-            const cities = {
-                'US': ['New York', 'Los Angeles', 'Chicago', 'Austin'],
-                'UK': ['London', 'Manchester', 'Birmingham'],
-                'CA': ['Toronto', 'Vancouver', 'Montreal'],
-                'AU': ['Sydney', 'Melbourne', 'Brisbane'],
-                'DE': ['Berlin', 'Munich', 'Hamburg']
-            };
-            
-            const country = data.country;
-            const city = cities[country] ? cities[country][Math.floor(Math.random() * cities[country].length)] : data.city;
-            
-            // Randomize pack count between 5-20 for realism
-            const packCount = Math.floor(Math.random() * 15) + 5;
-            
-            document.getElementById('geo-city').textContent = city;
-            document.getElementById('geo-pack-count').textContent = packCount;
-            
-            // Only show if we got valid location
-            document.querySelector('.geo-social-proof').style.display = 'block';
-        })
-        .catch(() => {
-            // Fallback if API fails
-            document.querySelector('.geo-social-proof').style.display = 'none';
         });
-
-    // Blood Moon Challenge Modal
-    document.getElementById('startChallenge').addEventListener('click', () => {
-        document.getElementById('challengeModal').style.display = 'flex';
     });
-
-    document.getElementById('closeModal').addEventListener('click', () => {
-        document.getElementById('challengeModal').style.display = 'none';
-    });
-
-    // Animate progress bar (example - would hook to real progress)
-    const days = document.querySelectorAll('.blood-moon-challenge .grid div');
-    let currentDay = 0;
-
-    const progressInterval = setInterval(() => {
-        if (currentDay < days.length) {
-            days[currentDay].classList.remove('bg-zinc-800');
-            days[currentDay].classList.add('bg-red-500');
-            currentDay++;
-        } else {
-            clearInterval(progressInterval);
-        }
-    }, 1000);
 </script>
 
-<!-- PayPal Buttons -->
-<script src="https://www.paypal.com/sdk/js?client-id=Ac31PirTDZ0M_ubUOJmJEtSgP8m3Z13aKmTXCKjnrkvfhYsB37STiOLWpMKdzv3F0V6jfM6314MzrICI&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
-<script>
-    // Omega Initiate PayPal Button
-    paypal.Buttons({
-        style: {
-            shape: 'rect',
-            color: 'gold',
-            layout: 'vertical',
-            label: 'subscribe'
-        },
-        createSubscription: function(data, actions) {
-          return actions.subscription.create({
-            plan_id: 'P-7MK29800P7122081RNBLC3LY'
-          });
-        },
-        onApprove: function(data, actions) {
-          alert('Subscription completed! Welcome to the Wolf Pack, Omega. Your subscription ID: ' + data.subscriptionID);
-        }
-    }).render('#paypal-button-container-P-7MK29800P7122081RNBLC3LY');
+<!-- PayPal SDK (replace with your actual client ID) -->
+<script src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID&vault=true&intent=subscription"></script>
 
-    // Beta Hunter PayPal Button
-    paypal.Buttons({
-        style: {
-            shape: 'rect',
-            color: 'gold',
-            layout: 'vertical',
-            label: 'subscribe'
-        },
-        createSubscription: function(data, actions) {
-          return actions.subscription.create({
-            plan_id: 'P-0SH22258UG427045YNBLC6PI'
-          });
-        },
-        onApprove: function(data, actions) {
-          alert('Subscription completed! Welcome to the Wolf Pack, Beta Hunter. Your subscription ID: ' + data.subscriptionID);
-        }
-    }).render('#paypal-button-container-P-0SH22258UG427045YNBLC6PI');
-
-    // Alpha Commander PayPal Button
-    paypal.Buttons({
-        style: {
-            shape: 'rect',
-            color: 'gold',
-            layout: 'vertical',
-            label: 'subscribe'
-        },
-        createSubscription: function(data, actions) {
-          return actions.subscription.create({
-            plan_id: 'P-94161393PF7561310NBLDABI'
-          });
-        },
-        onApprove: function(data, actions) {
-          alert('Subscription completed! Welcome to the Wolf Pack, Alpha Commander. Your subscription ID: ' + data.subscriptionID);
-        }
-    }).render('#paypal-button-container-P-94161393PF7561310NBLDABI');
-</script>
 </body>
 </html>
