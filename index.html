@@ -14,11 +14,31 @@
 <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
 <script type="module">
-	import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
+    import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
 
-	createChat({
-		webhookUrl: 'https://n8n-service-0qtq.onrender.com/webhook/5cb3f989-6275-4c16-969c-b27304e761be/chat'
-	});
+    createChat({
+        webhookUrl: 'https://n8n-service-0qtq.onrender.com/webhook/5cb3f989-6275-4c16-969c-b27304e761be/chat',
+        initialMessages: [
+            'The pack welcomes you. 🐺',
+            'I am Alpha, your guide to domination. How can I assist you today?'
+        ],
+        i18n: {
+            en: {
+                title: 'WolfNode Command',
+                subtitle: "Speak with Alpha - your automated hunting companion",
+                footer: '© 2023 WolfNode Pack',
+                getStarted: 'New Hunt',
+                inputPlaceholder: 'Type your command...',
+            },
+        },
+        metadata: {
+            agentName: 'Alpha'
+        },
+        mode: 'window',
+        loadPreviousSession: true,
+        showWelcomeScreen: false,
+        defaultLanguage: 'en'
+    });
 </script>
 <style>
         @keyframes subtle-glow {
@@ -225,89 +245,102 @@
         }
 
         /* N8N Chat Widget Custom Styles */
-        .n8n-chat-widget-container {
-            font-family: 'Space Grotesk', sans-serif !important;
+        :root {
+            --chat--color-primary: #FF8C00;
+            --chat--color-primary-shade-50: #e67e00;
+            --chat--color-primary-shade-100: #cc7000;
+            --chat--color-secondary: #FFA500;
+            --chat--color-white: #ffffff;
+            --chat--color-light: #f2f4f8;
+            --chat--color-light-shade-50: #e6e9f1;
+            --chat--color-light-shade-100: #c2c5cc;
+            --chat--color-medium: #d2d4d9;
+            --chat--color-dark: #101330;
+            --chat--color-disabled: #777980;
+            --chat--color-typing: #FFA500;
+
+            --chat--spacing: 1rem;
+            --chat--border-radius: 0.5rem;
+            --chat--transition-duration: 0.15s;
+
+            --chat--window--width: 400px;
+            --chat--window--height: 600px;
+
+            --chat--header-height: auto;
+            --chat--header--padding: var(--chat--spacing);
+            --chat--header--background: linear-gradient(135deg, #FF8C00, #FF4500);
+            --chat--header--color: var(--chat--color-white);
+            --chat--heading--font-size: 1.25em;
+            --chat--subtitle--font-size: 0.9em;
+            --chat--subtitle--line-height: 1.5;
+
+            --chat--textarea--height: 50px;
+
+            --chat--message--font-size: 1rem;
+            --chat--message--padding: 0.75rem 1rem;
+            --chat--message--border-radius: var(--chat--border-radius);
+            --chat--message-line-height: 1.6;
+            --chat--message--bot--background: rgba(20, 20, 20, 0.9);
+            --chat--message--bot--color: #E4E4E7;
+            --chat--message--bot--border: 1px solid rgba(255, 165, 0, 0.3);
+            --chat--message--user--background: linear-gradient(135deg, #FF8C00, #FF4500);
+            --chat--message--user--color: white;
+            --chat--message--user--border: none;
+            --chat--message--pre--background: rgba(0, 0, 0, 0.2);
+
+            --chat--toggle--background: var(--chat--color-primary);
+            --chat--toggle--hover--background: var(--chat--color-primary-shade-50);
+            --chat--toggle--active--background: var(--chat--color-primary-shade-100);
+            --chat--toggle--color: var(--chat--color-white);
+            --chat--toggle--size: 60px;
         }
 
         .n8n-chat-window {
-            background-color: rgba(10, 10, 10, 0.9) !important;
-            border: 1px solid rgba(255, 165, 0, 0.3) !important;
-            border-radius: 10px !important;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5) !important;
-            color: #E4E4E7 !important;
+            box-shadow: 0 5px 25px rgba(255, 140, 0, 0.3) !important;
+            border: 1px solid rgba(255, 165, 0, 0.5) !important;
         }
 
         .n8n-chat-header {
-            background-color: #FF8C00 !important;
-            color: white !important;
-            border-top-left-radius: 8px !important;
-            border-top-right-radius: 8px !important;
+            font-family: 'Space Grotesk', sans-serif !important;
             font-weight: 700 !important;
-            padding: 1rem !important;
+            letter-spacing: 0.5px !important;
         }
 
-        .n8n-chat-messages {
-            background-color: transparent !important;
-            padding: 10px !important;
+        .n8n-chat-message-ai::before {
+            content: '🐺 Alpha' !important;
+            display: block !important;
+            font-size: 0.75rem !important;
+            color: #FFA500 !important;
+            margin-bottom: 0.25rem !important;
+            font-weight: bold !important;
         }
 
-        .n8n-chat-message-user {
-            background-color: #FF8C00 !important;
-            color: white !important;
-            border-radius: 15px !important;
-            padding: 8px 12px !important;
-            margin-bottom: 8px !important;
-            align-self: flex-end !important;
-        }
-
-        .n8n-chat-message-ai {
-            background-color: #1a1a1a !important;
-            color: #E4E4E7 !important;
-            border-radius: 15px !important;
-            padding: 8px 12px !important;
-            margin-bottom: 8px !important;
-            align-self: flex-start !important;
+        .n8n-chat-message-user::before {
+            content: 'You' !important;
+            display: block !important;
+            font-size: 0.75rem !important;
+            color: rgba(255,255,255,0.7) !important;
+            margin-bottom: 0.25rem !important;
+            font-weight: bold !important;
         }
 
         .n8n-chat-input-container {
-            padding: 10px !important;
-            background-color: rgba(0,0,0,0.6) !important;
-            border-top: 1px solid rgba(255, 165, 0, 0.2) !important;
-            border-bottom-left-radius: 8px !important;
-            border-bottom-right-radius: 8px !important;
+            background: rgba(10, 10, 10, 0.9) !important;
+            border-top: 1px solid rgba(255, 165, 0, 0.3) !important;
         }
 
         .n8n-chat-input-text {
-            background-color: #2a2a2a !important;
-            color: white !important;
+            background: rgba(20, 20, 20, 0.9) !important;
             border: 1px solid rgba(255, 165, 0, 0.3) !important;
-            border-radius: 8px !important;
-            padding: 8px 12px !important;
+            color: white !important;
             font-family: 'Space Grotesk', sans-serif !important;
         }
 
         .n8n-chat-input-button {
-            background-color: #FF8C00 !important;
-            color: white !important;
-            border-radius: 8px !important;
-            padding: 8px 15px !important;
-            transition: background-color 0.3s ease !important;
-        }
-
-        .n8n-chat-input-button:hover {
-            background-color: #FFA500 !important;
-        }
-
-        .n8n-chat-toggle-button {
-             background-color: #FF8C00 !important;
-             color: white !important;
-             border-radius: 50% !important;
-             width: 50px !important;
-             height: 50px !important;
-             display: flex !important;
-             align-items: center !important;
-             justify-content: center !important;
-             box-shadow: 0 4px 10px rgba(0,0,0,0.3) !important;
+            font-family: 'Space Grotesk', sans-serif !important;
+            font-weight: 600 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.5px !important;
         }
 
         .contact-form-input { 
@@ -1510,24 +1543,5 @@
         }
     }).render('#paypal-button-container-P-94161393PF7561310NBLDABI');
 </script>
-
-<!-- N8N Chat Widget -->
-<script>
-    window.n8n = window.n8n || {};
-    window.n8n.chat = {
-        botId: 'YOUR_BOT_ID',
-        host: 'https://chat.n8n.io',
-        position: 'right',
-        buttonConfig: {
-            backgroundColor: '#FF8C00',
-            customIconUrl: 'https://wolfnode.com/path-to-wolf-icon.svg'
-        },
-        chatWindowConfig: {
-            welcomeMessage: 'The pack welcomes you. What do you seek, wolf?',
-            defaultOpen: false
-        }
-    };
-</script>
-<script src="https://chat.n8n.io/chat.js"></script>
 </body>
 </html>
